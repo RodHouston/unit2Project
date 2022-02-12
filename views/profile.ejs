@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <link rel="stylesheet" href="/css/profile.css">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <header>
+            <h1>Profile</h1>
+
+        </header>
+        <div class="main">
+            <div class="headerBox">
+<%#  ============================================================= %>
+
+                <div class="leftHeader">
+                    <div class="leftHeaderContainer">
+
+                        <div class='name'>
+                            <h1><%=data[0].firstName%></h1>
+                            <h1>&nbsp<%=data[0].lastName%></h1>
+                        </div>
+                        <h3>(<%=data[0].UserName%>)</h3>
+                        <div class="upperIcons">
+
+                        </div>
+
+                    </div>
+                </div>
+<%#  ============================================================= %>
+
+                <div class="photo">
+
+                    <img class= "img" id="<%=data[0].img%>" src="<%=data[0].img%>" alt=""></img>
+                </div>
+<%#  ============================================================= %>
+                <div class="rightHeader">
+                    <div class="rightHeaderContainer">
+                        <form class="" action="/edit/<%=data[0].firstName%>/edit?_method=PUT" method="POST">
+                            <strong>Name:</strong> <br/> <input type="text" name="name" value="<%=data[0].name%>"><br/>
+                            <strong>Type:</strong><br/><input type="text" name="type" value="<%=data[0].type%>"><br/>
+                            <input id='subEdit' type="submit" name="" value="Edit Pokemon">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+<%#  ============================================================= %>
+
+            <div class="bodyHead">
+                <div class="carousel">
+                  <div class="carouselBox">
+                         <%for(let i = 0; i<20; i++){%>
+
+                      <div id="s1" class="horizontal-card"><%=i+1%>
+
+                      </div>
+                    </a>
+                    <%}%>
+
+            </div>
+                  <div class = "leftScroll"  onclick="scrollL()"><</div>
+
+                  <div class = "rightScroll"  onclick="scrollR()">></div>
+            </div>
+            </div>
+<%#  ============================================================= %>
+
+            <div class="bodyDiv">
+                <div class="bodyLeftSide">
+                    <div class="shade">
+                        <div class="sideList">
+                            <div class="linksDiv">
+                                <div class="links"><ion-icon name="person"></ion-icon><b>Profile</b></div>
+
+                                <div class="links"><ion-icon name="navigate"></ion-icon><b>Saved Routes</b></div>
+
+                                <div class="links"><ion-icon name="hammer"></ion-icon><b>Best Shops</b></div>
+
+                                <div class="links"><ion-icon name="pricetag"></ion-icon><b>For Sale</b></div>
+
+                                <div class="links"><ion-icon name="storefront"></ion-icon><b>Dealers</b></div>
+
+                                <div id='spacerDiv' class="links"></div>
+
+                                <div class="links"><img class='brandImg' src="/photos/yamaha.png" alt=""><b>Yamaha</b></div>
+
+                                <div class="links"><img class='brandImg' src="/photos/honda.png" alt=""><b>Honda</b></div>
+
+                                <div class="links"><img class='brandImg' src="/photos/suz.png" alt=""><b>Suzuki</b></div>
+
+                                <div class="links"><img class='brandImg' src="/photos/ducati.png" alt=""><b>Ducati</b></div>
+
+                                <div class="links"><img class='brandImg' src="/photos/bmw.png" alt=""><b>BMW</b></div>
+
+                                <div class="links"><img class='brandImg' src="/photos/kawi.png" alt=""><b>Kawasaki</b></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+<%#  ============================================================= %>
+
+                <div class="gallery">
+                    <%for(let i = 0; i<20; i++){%>
+                        <div class="box">
+                            <iframe src="https://www.google.com/maps/d/embed?mid=188AKtKofEFlJRHrRl4--eV9gn1zaO1jK&ehbc=2E312F" width="100%" height="100%"></iframe>
+                            <div class="clip" id='right'></div>
+                            <div class="clip" id='left'></div>
+                            <div class="clip" id='up'></div>
+                            <div class="clip" id='down'></div>
+                            <span id='rightClip' class="clipper">boo</span>
+                            <span id='leftClip' class="clipper">boo</span>
+                            <span id='upClip' class="clipper">boo</span>
+                            <span id='downClip' class="clipper">boo</span>
+                        </div>
+                    <%}%>
+                </div>
+<%#  ============================================================= %>
+                <div class="bodyRightSide">
+                    <div class="shade">
+                        <article class="postContainer">
+                            <h1>Post</h1>
+
+                            <%for(let i = 0; i<20; i++){%>
+                            <article class="postBox">
+                                    <%for(let val of data[0].post){%>
+                                        <h2><%=data[0].post[0].subject%></h2>
+                                        <p><%=val.body%></p>
+                                    <%}%>
+                                </article>
+                            <%}%>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+<%#  ============================================================= %>
+
+        <footer>
+        </footer>
+        <script>
+            const sliders = document.querySelector('.carouselBox')
+
+            let scrollAmount = 0;
+            let scrollPerClick = 650;
+
+            function scrollL(){
+              console.log('clicked left');
+              console.log(` scroll befor ${scrollAmount}`);
+              if(scrollAmount<=0){
+                scrollAmount=2790;
+
+                // let $switch = $('.carouselBox').children().last().remove()
+                // $switch.prependTo('.carouselBox')
+
+                sliders.scrollTo({
+                  top:0,
+                  left: (scrollAmount -= scrollPerClick),
+                  behavior: "smooth"
+                })
+                console.log(` scroll if ${scrollAmount}`);
+              }else{
+                sliders.scrollTo({
+                top:0,
+                left: (scrollAmount -= scrollPerClick),
+                behavior: "smooth"
+              });
+              console.log(` scroll after ${scrollAmount}`);
+              }
+            }
+
+            function scrollR(){
+              console.log('clicked right');
+              console.log( sliders.scrollWidth);
+              if(scrollAmount< sliders.scrollWidth-200 ){
+
+                sliders.scrollTo({
+                  top:0,
+                  left: (scrollAmount += scrollPerClick),
+                  behavior: "smooth"
+                })
+              }else{
+                console.log('you are at the end');
+                scrollAmount=0
+
+                // let $switch = $('.carouselBox').children().first().remove()
+                // $switch.appendTo('.carouselBox')
+
+                sliders.scrollTo({
+                  top:0,
+                  left: (0),
+                  behavior: "smooth"
+                })
+              }
+            }
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="/css/login.css">
+    <head>
+        <title>Login</title>
+
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="mainEffect">
+
+
+                <h1>Login</h1>
+
+                <div class="container">
+                    <div class="holder">
+                        <div class="formIcon">
+
+                        </div>
+                        <div class="formHolder">
+                            <form name="form1">
+                                <p><b>UserName:</b><br/> <input class='input' TYPE="TEXT"  NAME="UserName"></p>
+                                <p><b>First Name:</b><br/> <input class='input' TYPE="TEXT"  NAME="firstName"></p>
+                                <p><b>Last Name: </b><br/> <input class='input' TYPE="TEXT"  NAME="lastName"></p>
+                                <p><input class='butt' TYPE="BUTTON" VALUE="LOGIN" onClick="login();"></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            function login() {
+              <%# /*DispWin = window.open('','NewWin', 'toolbar=no,status=no,width=300,height=200')
+              message = "<ul><li><b>NAME: </b>" + document.form1.firstName.value;
+              DispWin.document.write(message); */%>
+              window.location.href=`/profile/${document.form1.firstName.value}`
+            }
+        </script>
+    </body>
+</html>

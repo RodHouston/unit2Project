@@ -1,0 +1,137 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(40, 40, 40);
+}
+header{
+    width: 100%;
+    height: 50px;
+    background-color:rgb(65, 65, 65);
+    box-shadow: 10px 10px 10px rgba(0,0,0,1);
+}
+
+.main{
+    text-align: center;
+    max-width: 80%;
+    min-width: 420px;
+    height: 90vh;
+    margin: 20px auto;
+    background-color:rgb(18, 18, 18);
+    background-image: url('/photos/bike1.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: greyscale(100%);
+    box-shadow: -10px 10px 5px rgba(0, 0, 0,.9),10px 10px 5px rgba(0, 0, 0,.9);
+}
+.mainEffect{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255,255,255,.3);
+    background-color:rgba(0, 0, 0,.9);
+    box-shadow: -10px 10px 10px rgba(0, 0, 0,.5)inset,10px -10px 10px rgba(0, 0, 0,.5)inset;
+}
+h1{
+    font-size: 50px;
+    margin: 15px auto;
+}
+.container{
+    width: 90%;
+    height:70%;
+    background-color: rgba(0,0,0,.2);
+    margin: 10px auto;
+
+}
+.holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /* background-color: white; */
+    margin:auto;
+    backdrop-filter: blur(3px);
+}
+.formHolder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+    background-color: rgba(20, 20, 20,.3);
+}
+.form1{
+
+    margin: 0 auto;
+}
+p{
+    color: rgba(255,255,255,.5);
+}
+.input {
+  margin: 15px 0;
+  font-size: 16px;
+  padding: 10px;
+  width: 250px;
+  border: none;
+  border-bottom: 1px solid rgba(10, 180, 180, 1);
+  background: rgba(10, 10, 10, .5);
+  color: rgba(255,255,255,.5);
+  outline: none;
+}
+.formIcon{
+    width: 40%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+    background-image: url('/photos/cp.png');
+    background-size: 275px 325px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.butt{
+    border: 1px solid rgba(10, 180, 180, 1);
+    background: rgba(20, 20, 20, .6);
+    font-size: 18px;
+    color: white;
+    margin:10px 40px;
+    padding: 10px 50px;
+    cursor: pointer;
+    transition: .4s;
+}
+.butt:hover{
+    transform: scale(1.2);
+    box-shadow:
+    inset 0 0 10px white,
+    inset 5px 0 5px #0ff,
+    inset -5px 0 5px #0ff,
+    inset 5px 0 5px #0ff,
+    inset -5px 0 5px #0ff,
+    0 0 10px white,
+    -5px 0 5px #0ff,
+    5px 0 5px #0ff;
+}
+footer{
+    width: 100%;
+    height: 50px;
+    background-color:rgb(65, 65, 65);
+    box-shadow: 10px 10px 10px rgba(0,0,0,1);
+
+}
+
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+  .formHolder{
+      width: 90%;
+
+  }
+  .formIcon{
+     display: none;
+  }
+}

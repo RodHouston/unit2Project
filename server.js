@@ -6,6 +6,9 @@ const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
+const UserModel = require('./models/user.js')
+const UserSeed = require('./models/userSeed.js')
+
 require('dotenv').config()
 //___________________
 //Port
@@ -48,9 +51,108 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 // Routes
 //___________________
 //localhost:3000
+
+// UserModel.create( UserSeed, ( err , data ) => {
+//       if ( err ) console.log ( err.message )
+//   console.log( "added  data" )
+//   }
+// );
+
+
 app.get('/' , (req, res) => {
-  res.send('Making sure I know how to deploy');
+    res.render('login.ejs');
+
 });
+// loads profile page with info found from first name key
+app.get('/profile/:firstName' , (req, res) => {
+    UserModel.find({firstName: req.params.firstName}, (err, user) => {
+        res.render('profile.ejs', {data: user});
+    })
+});
+
+app.get('/gallery' , (req, res) => {
+    res.render('gallery.ejs');
+
+});
+app.get('/edit/:name/edit', (req, res) => {
+    UserModel.find({
+        firstName: req.params.firstName
+    }, (err, user) => {
+        res.render('edit.ejs', {
+            data: user
+        });
+    });
+});
+
+
+//
+// app.get('/profile/:name', (req, res) => {
+//     PokemonModel.find({name: req.params.name}, (err, pokemon) => {
+//         PokemonModel.find({}, (err, allPokemon) => {
+//             res.render('show.ejs', { data: pokemon, all: allPokemon }
+//         );
+//         })
+//     })
+// })
+// app.put('/pokemon/:name', (req, res) => {
+//     PokemonModel.findOneAndUpdate({
+//         name: req.params.name
+//     }, req.body, {
+//         new: true
+//     }, (err, data) => {
+//         res.redirect('/index');
+//     });
+// });
+
+// app.delete('/pokemon/:name', (req, res) => {
+//     PokemonModel.findOneAndDelete({
+//         name: req.params.name
+//     }, (err, foundPokemon) => {
+//         res.redirect('/index')
+//     });
+// });
+
+// app.get('/pokemon/new', (req, res) => {
+//     res.render('new.ejs');
+// })
+
+
+
+
+// app.get('/index', (req, res) => {
+//     PokemonModel.find({}, (err, allPokemon) => {
+//         res.render(
+//             'index.ejs', {
+//                 data: allPokemon
+//             }
+//         )
+//     }).sort({
+//         "id": 1
+//     })
+// })
+
+// app.post('/pokemon', (req, res) => {
+//
+//     PokemonModel.create(req.body), (err, createdPokemon) => {
+//         res.send(req.body);
+//     }
+//     res.redirect('/index');
+// })
+
+
+
+UserModel.count({} , (err , data)=> {
+   if ( err ) console.log( err.message );
+    console.log ( `There are ${data} in this database` );
+});
+
+
+
+
+
+
+
+
 
 //___________________
 //Listener
