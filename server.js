@@ -9,6 +9,86 @@ const db = mongoose.connection;
 const UserModel = require('./models/user.js')
 const UserSeed = require('./models/userSeed.js')
 
+const PostModel = require('./models/postModel.js')
+const PostSeed = require('./models/postSeed.js')
+//
+// //===========for image upload
+// const bodyParser = require('body-parser');
+// const fs = require('fs');
+// const path = require('path');
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.json())
+// require('dotenv/config');
+// // Set EJS as templating engine
+// app.set("view engine", "ejs");
+// const multer = require('multer');
+//
+// // mongoose.connect(process.env.MONGO_URL,
+// //     { useNewUrlParser: true, useUnifiedTopology: true }, err => {
+// //         console.log('connected')
+// //     });
+//
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'uploads')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+// });
+//
+// const upload = multer({ storage: storage });
+// const ImageModel = require('./models/imageModel.js');
+//
+//
+//
+// app.get('/uploadImage', (req, res) => {
+//     ImageModel.find({}, (err, items) => {
+//         if (err) {
+//             console.log(err);
+//             console.log('in here err');
+//             res.status(500).send('An error occurred', err);
+//         }
+//         else {console.log('in here 1');
+//             res.render('imageUpload.ejs', { items: items });
+//         }
+//     });
+// });
+//
+// app.post('/', upload.single('image'), (req, res, next) => {
+//
+//         console.log(__dirname );
+//     console.log('in here 2');
+//     const obj = {
+//         name: req.body.name,
+//         desc: req.body.desc,
+//         img: {
+//             data: "fs.readFileSync(path.join(__dirname + '/images/' + req.file.filename))",
+//             contentType: 'image/png'
+//         }
+//     }
+//     ImageModel.create(obj, (err, item) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             // item.save();
+//             res.redirect('/');
+//         }
+//     });
+// });
+//
+// app.get('/gallery' , (req, res) => {
+//     ImageModel.find({}, (err, imgs) => {
+//
+//
+//     res.render('gallery.ejs', {images: imgs});
+//     })
+// });
+//
+//
+// //======================================================
+
 require('dotenv').config()
 //___________________
 //Port
@@ -52,37 +132,108 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 //___________________
 //localhost:3000
 
+
+ //===========================================================================
+//==============*** SEEDS ****=================================
 // UserModel.create( UserSeed, ( err , data ) => {
 //       if ( err ) console.log ( err.message )
 //   console.log( "added  data" )
 //   }
 // );
+ // PostModel.create( PostSeed, ( err , data ) => {
+ //       if ( err ) console.log ( err.message )
+ //   console.log( "added  data" )
+ //   }
+ // );
 
 
+ //===========================================================================
+//=============Creates new user send here from login page(/)
+app.post('/newUser', (req, res) => {
+    UserModel.create(req.body), (err, createdUser) => {
+        res.send(req.body);
+    }
+    res.redirect('/');
+})
+app.get('/newUser' , (req, res) => {
+    res.render('newUser.ejs');
+});
+
+
+//===========================================================================
+//=============Login Page.======================================
 app.get('/' , (req, res) => {
     res.render('login.ejs');
-
 });
-// loads profile page with info found from first name key
+
+
+//===========================================================================
+//============== loads profile page with info found from first name key
 app.get('/profile/:firstName' , (req, res) => {
-    UserModel.find({firstName: req.params.firstName}, (err, user) => {
-        res.render('profile.ejs', {data: user});
-    })
+    PostModel.find({author: req.params.firstName}, (err, userPost) => {
+
+        UserModel.find({}, (err, allUsers) => {
+            UserModel.find({firstName: req.params.firstName}, (err, user) => {
+                res.render('profile.ejs', {data: user, post:userPost, allUsers:allUsers});
+            })
+        })
+    }).sort({"_id": -1})
 });
 
+
+//===========================================================================
+// =============photo gallery page
 app.get('/gallery' , (req, res) => {
     res.render('gallery.ejs');
-
 });
-app.get('/edit/:name/edit', (req, res) => {
-    UserModel.find({
-        firstName: req.params.firstName
-    }, (err, user) => {
-        res.render('edit.ejs', {
+
+
+//===========================================================================
+//====WORKING ON EDIT FEATURE ==========
+//sent here from edit page. puts info into database and redirect back to
+app.get('/edit/:firstName/edit', (req, res) => {
+    UserModel.find({firstName: req.params.firstName}, (err, user) => {
+        res.render('update.ejs', {
             data: user
         });
     });
 });
+
+app.put('/edit/:firstName', (req, res) => {
+    // console.log(res);
+    UserModel.findOneAndUpdate({firstName: req.params.subject}, req.body, {new: true}, (err, data) => {
+        res.redirect('/profile/firstName');
+    });
+});
+
+
+//===========================================================================
+//==== Creates new post. =======
+app.get('/newPost/:firstName/newPost', (req, res) => {
+
+    UserModel.find({firstName: req.params.firstName}, (err, user) => {
+        res.render('postPage.ejs', {
+            data: user
+        });
+    });
+});
+
+app.post('/newPost/:firstName', (req, res) => {
+    console.log(req)
+    PostModel.create(req.body), (err, createdPost) => {
+        res.send(req.body);
+    }
+    PostModel.find({author: req.params.firstName}, (err, userPost) => {
+        UserModel.find({}, (err, allUsers) => {
+            UserModel.find({firstName: req.params.firstName}, (err, user) => {
+                res.render('profile.ejs', {data: user, post:userPost, allUsers:allUsers});
+            })
+        })
+    })
+})
+
+
+
 
 
 //
@@ -131,13 +282,6 @@ app.get('/edit/:name/edit', (req, res) => {
 //     })
 // })
 
-// app.post('/pokemon', (req, res) => {
-//
-//     PokemonModel.create(req.body), (err, createdPokemon) => {
-//         res.send(req.body);
-//     }
-//     res.redirect('/index');
-// })
 
 
 

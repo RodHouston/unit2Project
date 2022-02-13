@@ -14,6 +14,12 @@ header{
     background-color:rgb(65, 65, 65);
     box-shadow: 10px 10px 10px rgba(0,0,0,1);
 }
+.titleName{
+
+}
+.hiddenHeaderName{
+    display: none;
+}
 
 .main{
     width: 90%;
@@ -88,6 +94,16 @@ header{
     justify-content: center;
     align-items: center;
 }
+.cpIM{
+    width: 200px;
+    height: 200px;
+    /* background-color: red; */
+    background-size: 150px 200px;
+    background-image: url('/photos/cp.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+}
 .carousel{
     height: 200px;
     width: 55%;
@@ -148,6 +164,7 @@ header{
     border-radius: 5px;
     border: 2px solid white;
     box-shadow: 5px 5px 10px rgb(0, 91, 91);
+    background-size: 100% 100%;
 
 }
 .horizontal-card:hover{
@@ -221,7 +238,7 @@ ion-icon{
     text-decoration: underline;
     transform: scale(1.1);
 }
-
+/* =========== right side post========= */
 .bodyRightSide{
 
     width: 25%;
@@ -231,10 +248,9 @@ ion-icon{
     background-repeat: no-repeat;
     background-size: 100% 100vh;
     overflow: hidden;
-
 }
 .postContainer{
-    width: 90%;
+    width: 100%;
     height: 100vh;
     margin: 0;
     padding: 5px;
@@ -242,16 +258,36 @@ ion-icon{
     overflow-x: hidden;
 }
 .postBox{
-    width: 80%;
-    height: 100px;
+    width: 95%;
+    height: 200px;
     margin: 4px;
     font-size: 90%;
     background: rgba(41, 41, 41,.3);
     color:rgb(187, 187, 187);
     margin: 10px auto;
+
     padding: 5px;
 }
-
+.postDiv{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    /* background-color: orange; */
+}
+.topSidePost{
+    height: 50%;
+    width: 100%;
+    /* background-color: green; */
+    overflow-y:hidden;
+}
+.sideImgContainer{
+    height: 50%;
+    width: 100%;
+    /* background-color: red; */
+    background-size: 100% 100%;
+}
 
 
 
@@ -279,26 +315,26 @@ ion-icon{
     height: 300px;
     width: 600px;
     background: transparent;
-    border: 5px solid red;
-    box-shadow: 6px 6px 0 #888;
+    border: 5px solid rgba(0,0,0,.5);
+    /* box-shadow: 6px 6px 0 #888; */
     color: red;
     cursor: pointer;
-    font-size: 5rem;
+    /* font-size: 5rem; */
     font-weight: bold;
     outline: transparent;
     padding: 8px 16px;
-    transition: box-shadow 0.15s ease;
+    /* transition: box-shadow 0.15s ease; */
     margin: 10px auto;
     overflow: hidden;
 }
 
-.box:hover {
+/* .box:hover {
   box-shadow: 4px 4px 0 #888;
 }
 
 .box:active {
   box-shadow: 0 0 0 #888;
-}
+} */
 .clip {
     display: flex;
     flex-shrink: 1;
@@ -335,42 +371,46 @@ ion-icon{
 .clipper {
     display: flex;
     flex-shrink: 1;
-    height: 300px;
-    width: 600px;
+    height: 100%;
+    width: 100%;
     box-shadow: 6px 6px 0 #888;
     color: white;
     cursor: pointer;
-    font-size: 5rem;
+    /* font-size: 5rem; */
     font-weight: bold;
     outline: transparent;
-    padding: 8px 16px;
-    transition: box-shadow 0.15s ease;
+    /* padding: 8px 16px; */
+    /* transition: box-shadow 0.15s ease; */
     position: absolute;
-    top:-5px;
-    left: -5px;
+    top:0;
+    left: 0;
     opacity: 0;
     transition: clip-path 0.25s ease;
+    background-color: rgba(0,0,0,.5);
+    backdrop-filter: blur(3px);
+    text-align: center;
+
 }
 #rightClip{
-    background: blue;
+    /* background: blue; */
     border: 5px solid blue;
     clip-path: inset(0 0 0 100%);
 
 }
 #downClip{
-    background: red;
+    /* background: red; */
     border: 5px solid red;
     clip-path: inset(100% 0 0 0);
 
 }
 #upClip{
-    background: yellow;
+    /* background: yellow; */
     border: 5px solid yellow;
     clip-path: inset(0 0 100% 0);
 
 }
 #leftClip{
-    background: green;
+    /* background: green; */
     border: 5px solid green;
     clip-path: inset(0 100% 0 0);
 }
@@ -388,6 +428,17 @@ ion-icon{
     /* opacity: 1; */
     z-index: 2;
     clip-path: inset(0 0 0 0);
+}
+.emptyClipBox{
+    width: 70%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    backdrop-filter: blur(3px);
+}
+.sideClipBox{
+    width: 30%;
+    height: 100%;
+    background-color: black;
 }
 
 
@@ -409,11 +460,33 @@ ion-icon{
   body {
     background-color: lightblue;
   }
+  .main{
+      width: 100%;
+  }
+  .titleName{
+      display: none;
+
+  }
+
+  .hiddenHeaderName {
+      display: flex;
+      width: 100px;
+      margin: 0 20px;
+  }
+  .name{
+      display: none;
+  }
+  .leftHeaderContainer h3{
+      display: none;
+  }
   .bodyRightSide{
       display: none;
   }
   .gallery{
       width: 100%;
+  }
+  .carousel{
+      width: 90%;
   }
 
 }

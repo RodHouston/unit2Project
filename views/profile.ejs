@@ -9,8 +9,11 @@
     </head>
     <body>
         <header>
-            <h1>Profile</h1>
 
+            <div class="hiddenHeaderName">
+                <h1><%=data[0].firstName%></h1>
+                <h1>&nbsp<%=data[0].lastName%></h1>
+            </div>
         </header>
         <div class="main">
             <div class="headerBox">
@@ -39,11 +42,11 @@
 <%#  ============================================================= %>
                 <div class="rightHeader">
                     <div class="rightHeaderContainer">
-                        <form class="" action="/edit/<%=data[0].firstName%>/edit?_method=PUT" method="POST">
-                            <strong>Name:</strong> <br/> <input type="text" name="name" value="<%=data[0].name%>"><br/>
-                            <strong>Type:</strong><br/><input type="text" name="type" value="<%=data[0].type%>"><br/>
-                            <input id='subEdit' type="submit" name="" value="Edit Pokemon">
-                        </form>
+                        <a class="edit" href="/edit/<%=data[0].firstName%>/edit"><div class="butt1"><div id="edit">Edit</br></div></div></a>
+                        <a class="edit" href="/newPost/<%=data[0].firstName%>/newPost"><div class="butt1"><div id="edit">Post</div></div></a>
+
+                        <a href="/gallery">Gallery</a>
+
                     </div>
                 </div>
 
@@ -52,21 +55,32 @@
 <%#  ============================================================= %>
 
             <div class="bodyHead">
+                <div class="cpIM">
+
+                </div>
+
                 <div class="carousel">
                   <div class="carouselBox">
-                         <%for(let i = 0; i<20; i++){%>
 
-                      <div id="s1" class="horizontal-card"><%=i+1%>
+                             <%for(let val of allUsers){%>
+                                 <a href="/profile/<%=val.firstName%>" >
+                      <div id="s1" class="horizontal-card" style="background-image: url('<%=val.img%>')">
+                          <%=val.UserName%>
 
                       </div>
                     </a>
                     <%}%>
 
-            </div>
-                  <div class = "leftScroll"  onclick="scrollL()"><</div>
+                </div>
+                      <div class = "leftScroll"  onclick="scrollL()"><</div>
 
-                  <div class = "rightScroll"  onclick="scrollR()">></div>
-            </div>
+                      <div class = "rightScroll"  onclick="scrollR()">></div>
+                </div>
+                <div class="cpIM">
+
+                </div>
+
+
             </div>
 <%#  ============================================================= %>
 
@@ -106,17 +120,26 @@
 <%#  ============================================================= %>
 
                 <div class="gallery">
-                    <%for(let i = 0; i<20; i++){%>
+                    <%for(let val of post){%>
                         <div class="box">
-                            <iframe src="https://www.google.com/maps/d/embed?mid=188AKtKofEFlJRHrRl4--eV9gn1zaO1jK&ehbc=2E312F" width="100%" height="100%"></iframe>
+
+                            <div class="postDiv">
+                                <div class="topSidePost">
+                                    <!-- <h2><%=val.subject%></h2> -->
+                                    <h3><%=val.subject%> by <%=val.author%></h3>
+                                    <%=val.createdAt%>
+                                </div>
+                                <div class="sideImgContainer" style="background-image: url('<%=val.img%>')" >
+                                </div>
+                            </div>
                             <div class="clip" id='right'></div>
                             <div class="clip" id='left'></div>
                             <div class="clip" id='up'></div>
                             <div class="clip" id='down'></div>
-                            <span id='rightClip' class="clipper">boo</span>
-                            <span id='leftClip' class="clipper">boo</span>
-                            <span id='upClip' class="clipper">boo</span>
-                            <span id='downClip' class="clipper">boo</span>
+                            <span id='rightClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></p></span>
+                            <span id='leftClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
+                            <span id='upClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
+                            <span id='downClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
                         </div>
                     <%}%>
                 </div>
@@ -126,12 +149,18 @@
                         <article class="postContainer">
                             <h1>Post</h1>
 
-                            <%for(let i = 0; i<20; i++){%>
+                            <%for(let val of post){%>
                             <article class="postBox">
-                                    <%for(let val of data[0].post){%>
-                                        <h2><%=data[0].post[0].subject%></h2>
-                                        <p><%=val.body%></p>
-                                    <%}%>
+                                    <div class="postDiv">
+                                        <div class="topSidePost">
+                                            <!-- <h2><%=val.subject%></h2> -->
+                                            <h3><%=val.subject%> by <%=val.author%></h3>
+                                            <p><%=val.content%></p>
+                                        </div>
+                                        <div class="sideImgContainer" style="background-image: url('<%=val.img%>')" >
+                                        </div>
+
+                                    </div>
                                 </article>
                             <%}%>
                         </article>

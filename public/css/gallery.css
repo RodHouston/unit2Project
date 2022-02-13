@@ -45,10 +45,10 @@ header{
 
     position: relative;
     height: 200px;
-    width: 400px;
+    width:200px;
     background: transparent;
-    border: 5px solid red;
-    box-shadow: 6px 6px 0 #888;
+    border: 5px solid rgb(15, 15, 15) ;
+    box-shadow: 3px 3px 10px #888, 3px 3px 10px rgba(0,0,0,0.8) inset, -3px -3px 10px rgba(0,0,0,0.8) inset;
     color: red;
     cursor: pointer;
     font-size: 5rem;
@@ -56,25 +56,27 @@ header{
     outline: transparent;
     padding: 8px 16px;
     transition: box-shadow 0.15s ease;
-    margin: 20px;
+    margin: 5px;
+    border-radius: 10px;
 }
 
-.box:hover {
+/* .box:hover {
   box-shadow: 4px 4px 0 #888;
 }
 
 .box:active {
   box-shadow: 0 0 0 #888;
-}
+} */
 .clip {
-    height: 200px;
-    width: 400px;
+    height: 100%;
+    width: 100%;
     padding: 8px 16px;
     position: absolute;
-    top:-5px;
-    left: -5px;
+    top:0;
+    left: 0;
     opacity: 0;
-    z-index: 1;
+
+    border-radius: 10px;
 }
 #up{
     background: orange;
@@ -98,43 +100,44 @@ header{
 }
 
 .clipper {
-    height: 200px;
-    width: 400px;
+    height: 100%;
+    width:100%;
     box-shadow: 6px 6px 0 #888;
     color: white;
     cursor: pointer;
-    font-size: 5rem;
-    font-weight: bold;
     outline: transparent;
     padding: 8px 16px;
     transition: box-shadow 0.15s ease;
     position: absolute;
-    top:-5px;
-    left: -5px;
+    top:0;
+    left: 0;
     opacity: 0;
-    transition: clip-path 0.25s ease;
+    transition: clip-path 0.5s ease;
+    /* border-radius: 5px; */
+    background-color: rgba(0,0,0,.5);
+    backdrop-filter: blur(3px);
 }
 #rightClip{
-    background: blue;
-    border: 5px solid blue;
+    /* background: blue; */
+    /* border: 5px solid blue; */
     clip-path: inset(0 0 0 100%);
 
 }
 #downClip{
-    background: red;
-    border: 5px solid red;
+    /* background: red; */
+    /* border: 5px solid red; */
     clip-path: inset(100% 0 0 0);
 
 }
 #upClip{
-    background: yellow;
-    border: 5px solid yellow;
+    /* background: yellow; */
+    /* border: 5px solid yellow; */
     clip-path: inset(0 0 100% 0);
 
 }
 #leftClip{
-    background: green;
-    border: 5px solid green;
+    /* background: green; */
+    /* border: 5px solid green; */
     clip-path: inset(0 100% 0 0);
 }
 

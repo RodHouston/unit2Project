@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <link rel="stylesheet" href="/css/postPage.css">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body id='bod'>
+        <header>
+
+        </header>
+        <div class="main">
+                <div class="topContainer">
+                    <div class="userInfo">
+                        <div class="userImg" style="background-image: url('<%=data[0].img%>')">
+
+                        </div>
+                        <h3><%=data[0].firstName%> <%=data[0].lastName%></h3>
+                    </div>
+
+                    <form class="form" action="/newPost/<%=data[0].firstName%>" method="POST">
+
+                        <br/><input id ="nameVal" type="text" name="author" onchange='checkName(event)' value="<%=data[0].firstName%>"/><br/>
+
+                        <!-- Subject:<br/> <input type="text" name="subject"/><br/> -->
+                        <label for="subject">Choose Subject:</label>
+
+                            <select class="input" id="post" name="subject" onchange='showInput(event)' size="1">
+                                <option  value="Post">Post</option>
+                                <option  value="Ride">Ride Alert</option>
+                            </select><br><br>
+                            
+
+                            Content:<br/> <textarea class="input" id="inputBox" type="text" name="content" /></textarea/<br/>
+                            <input class="input" id="postImg" type="text" name="img"/><br/>
+
+                        <input class="input" id=subPost type="submit" value="Create Post">
+                    </form>
+
+
+
+
+                </div>
+
+
+            <h1>Post a post</h1>
+
+
+
+
+
+
+
+        </div>
+        <script>
+            function showInput(e) {
+                if(document.getElementById('post').value == "Ride"){
+                    document.getElementById('postImg').style.display = 'flex';
+                }else
+                if(document.getElementById('post').value == "Post"){
+                    document.getElementById('bod').style.backgroundColor = 'red';
+                }
+            }
+            function checkName(e) {
+                if(document.getElementById('nameVal').value == "<%=data[0].firstName%>"){
+                    document.getElementById('subPost').style.display = 'block';
+                }else
+                if(document.getElementById('nameVal').value != "<%=data[0].firstName%>"){
+                    document.getElementById('bod').style.backgroundColor = 'red';
+                    document.getElementById('subPost').style.display = 'none';
+                }
+            }
+        </script>
+
+    </body>
+</html>
