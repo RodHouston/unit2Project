@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <link rel="stylesheet" href="/css/profile.css">
@@ -42,7 +43,9 @@
 <%#  ============================================================= %>
                 <div class="rightHeader">
                     <div class="rightHeaderContainer">
+                        
                         <a class="edit" href="/edit/<%=data[0].firstName%>/edit"><div class="butt1"><div id="edit">Edit</br></div></div></a>
+
                         <a class="edit" href="/newPost/<%=data[0].firstName%>/newPost"><div class="butt1"><div id="edit">Post</div></div></a>
 
                         <a href="/gallery">Gallery</a>
@@ -121,22 +124,32 @@
 
                 <div class="gallery">
                     <%for(let val of post){%>
-                        <div class="box">
+                        <%if(val.subject == "Post" ){%>
+                            <div class="box" id='hidePost' onclick="edit('<%=val.id%>')">
+                                <%}else{%>
+
+                         <div class="box" onclick="edit('<%=val.id%>')">
+                             <%}%>
 
                             <div class="postDiv">
-                                <div class="topSidePost">
+                                <div class="middleImgContainer" style="background-image: url('<%=val.img%>')" >
                                     <!-- <h2><%=val.subject%></h2> -->
                                     <h3><%=val.subject%> by <%=val.author%></h3>
                                     <%=val.createdAt%>
                                 </div>
-                                <div class="sideImgContainer" style="background-image: url('<%=val.img%>')" >
-                                </div>
                             </div>
+
+
                             <div class="clip" id='right'></div>
                             <div class="clip" id='left'></div>
                             <div class="clip" id='up'></div>
                             <div class="clip" id='down'></div>
-                            <span id='rightClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></p></span>
+                            <span id='rightClip' class="clipper">
+                                <div class= "emptyClipBox">
+
+
+                                </div>
+                                <div class= 'sideClipBox'><p><%=val.content%></div></p></span>
                             <span id='leftClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
                             <span id='upClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
                             <span id='downClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
@@ -150,19 +163,19 @@
                             <h1>Post</h1>
 
                             <%for(let val of post){%>
-                            <article class="postBox">
-                                    <div class="postDiv">
-                                        <div class="topSidePost">
+                                <%if(val.subject == "Post" ){%>
+
+                            <article class="postBox" onclick="edit('<%=val.id%>')">                                    <div class="sidePost">
                                             <!-- <h2><%=val.subject%></h2> -->
                                             <h3><%=val.subject%> by <%=val.author%></h3>
+                                            <div id="edit">Post<p><%=val.id%></p>
                                             <p><%=val.content%></p>
-                                        </div>
-                                        <div class="sideImgContainer" style="background-image: url('<%=val.img%>')" >
                                         </div>
 
                                     </div>
                                 </article>
-                            <%}%>
+
+                            <%}}%>
                         </article>
                     </div>
                 </div>
@@ -174,6 +187,11 @@
         <footer>
         </footer>
         <script>
+        function edit(id){
+            window.location.href=`/edit/${id}/edit`;
+        }
+
+
             const sliders = document.querySelector('.carouselBox')
 
             let scrollAmount = 0;

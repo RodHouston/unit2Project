@@ -1,7 +1,12 @@
 //___________________
 //Dependencies
 //___________________
-const express = require('express');
+const express = require('express'),
+bodyParser = require("body-parser"),
+fs = require("fs"),
+multer = require("multer")
+
+;
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
@@ -12,82 +17,6 @@ const UserSeed = require('./models/userSeed.js')
 const PostModel = require('./models/postModel.js')
 const PostSeed = require('./models/postSeed.js')
 //
-// //===========for image upload
-// const bodyParser = require('body-parser');
-// const fs = require('fs');
-// const path = require('path');
-// app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(bodyParser.json())
-// require('dotenv/config');
-// // Set EJS as templating engine
-// app.set("view engine", "ejs");
-// const multer = require('multer');
-//
-// // mongoose.connect(process.env.MONGO_URL,
-// //     { useNewUrlParser: true, useUnifiedTopology: true }, err => {
-// //         console.log('connected')
-// //     });
-//
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-//
-// const upload = multer({ storage: storage });
-// const ImageModel = require('./models/imageModel.js');
-//
-//
-//
-// app.get('/uploadImage', (req, res) => {
-//     ImageModel.find({}, (err, items) => {
-//         if (err) {
-//             console.log(err);
-//             console.log('in here err');
-//             res.status(500).send('An error occurred', err);
-//         }
-//         else {console.log('in here 1');
-//             res.render('imageUpload.ejs', { items: items });
-//         }
-//     });
-// });
-//
-// app.post('/', upload.single('image'), (req, res, next) => {
-//
-//         console.log(__dirname );
-//     console.log('in here 2');
-//     const obj = {
-//         name: req.body.name,
-//         desc: req.body.desc,
-//         img: {
-//             data: "fs.readFileSync(path.join(__dirname + '/images/' + req.file.filename))",
-//             contentType: 'image/png'
-//         }
-//     }
-//     ImageModel.create(obj, (err, item) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             // item.save();
-//             res.redirect('/');
-//         }
-//     });
-// });
-//
-// app.get('/gallery' , (req, res) => {
-//     ImageModel.find({}, (err, imgs) => {
-//
-//
-//     res.render('gallery.ejs', {images: imgs});
-//     })
-// });
-//
-//
-// //======================================================
 
 require('dotenv').config()
 //___________________
@@ -132,7 +61,6 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 //___________________
 //localhost:3000
 
-
  //===========================================================================
 //==============*** SEEDS ****=================================
 // UserModel.create( UserSeed, ( err , data ) => {
@@ -145,9 +73,77 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
  //   console.log( "added  data" )
  //   }
  // );
-
-
  //===========================================================================
+
+ // //===========for image upload==================
+ app.use(bodyParser.urlencoded({ extended: false }))
+ app.use(bodyParser.json())
+ app.use(express.static(__dirname));
+const path = require('path');
+ const Image = require('./models/imageModel.js')
+
+ const storage = multer.diskStorage({
+     destination: function (req, file, cb) {
+       cb(null, "./public/photos/uploads");
+
+     },
+     filename: function (req, file, cb) {
+       cb(null, file.fieldname + '-' + Date.now())
+     }
+   })
+   const upload = multer({ storage: storage })
+
+   app.get("/upLoadImage",(req,res)=>{
+     res.render("imageUpload.ejs");
+ })
+ app.post("/uploadphoto",upload.single('myImage'),(req,res)=>{
+
+console.log(req.file.path);
+     const img = fs.readFileSync(req.file.path);
+     const encode_img = img.toString('base64');
+     const final_img = {
+         owner: req.body.owner,
+         desc: req.body.desc,
+         img: {
+         data: fs.readFileSync(path.join(__dirname + '/public/photos/uploads/' + req.file.filename)),
+         contentType: 'image/png'
+
+     }
+
+ }
+     Image.create(final_img, (err,result)=>{
+         if(err){
+             console.log(err);
+         }else{
+             console.log(`this is path ${req.file.path}`);
+             let firstName = final_img.owner
+             Image.find({}, (err, allPhotos) => {
+
+
+
+             PostModel.find({author: firstName}, (err, userPost) => {
+
+                 UserModel.find({}, (err, allUsers) => {
+                     UserModel.find({firstName: firstName}, (err, user) => {
+                         res.render('gallery.ejs', {data: user, post:userPost, allUsers:allUsers, allPhotos:allPhotos});
+                     })
+                 })
+             }).sort({"_id": -1})
+             // res.contentType(final_img.contentType);
+             // res.send(final_img.image);
+                  })
+         }
+     })
+ })
+
+ // //======================================================
+
+
+
+
+
+
+
 //=============Creates new user send here from login page(/)
 app.post('/newUser', (req, res) => {
     UserModel.create(req.body), (err, createdUser) => {
@@ -184,26 +180,61 @@ app.get('/profile/:firstName' , (req, res) => {
 //===========================================================================
 // =============photo gallery page
 app.get('/gallery' , (req, res) => {
-    res.render('gallery.ejs');
+    PostModel.find({author: req.params.firstName}, (err, userPost) => {
+        Image.find({}, (err, photos) => {
+
+
+        UserModel.find({}, (err, allUsers) => {
+            UserModel.find({firstName: req.params.firstName}, (err, user) => {
+                res.render('gallery.ejs', {data: user, post:userPost, allUsers:allUsers, allPhotos: photos});
+            })
+            })
+        })
+    })
+
 });
 
 
 //===========================================================================
 //====WORKING ON EDIT FEATURE ==========
 //sent here from edit page. puts info into database and redirect back to
-app.get('/edit/:firstName/edit', (req, res) => {
-    UserModel.find({firstName: req.params.firstName}, (err, user) => {
-        res.render('update.ejs', {
-            data: user
-        });
-    });
+app.get('/edit/:id/edit', (req, res) => {
+
+
+
+    PostModel.findOne({_id: req.params.id}, (err, userPost) => {
+        // console.log(userPost.author);
+
+        let firstName = userPost.author;
+        console.log(`this is name ${firstName}`);
+
+        UserModel.find({firstName: firstName}, (err, user) => {
+            // console.log('we here');
+            // console.log(user);
+            res.render('update.ejs', { post:userPost, data: user});
+        })
+    })
 });
 
-app.put('/edit/:firstName', (req, res) => {
+app.put('/edit/:id', (req, res) => {
     // console.log(res);
-    UserModel.findOneAndUpdate({firstName: req.params.subject}, req.body, {new: true}, (err, data) => {
-        res.redirect('/profile/firstName');
-    });
+    PostModel.findOne({_id: req.params.id}, (err, userPost) => {
+        // console.log(userPost.author);
+        let firstName = userPost.author;
+        // console.log(`this is name ${firstName}`);
+
+
+    PostModel.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, (err, post) => {
+        PostModel.find({author: firstName}, (err, usersPost) => {
+            UserModel.find({}, (err, allUsers) => {
+                UserModel.find({firstName: firstName}, (err, user) => {
+                    res.render('profile.ejs', {data: user, post:usersPost, allUsers:allUsers});
+                })
+                })
+            })
+        }).sort({"_id": -1})
+    })
+
 });
 
 
@@ -285,11 +316,18 @@ app.post('/newPost/:firstName', (req, res) => {
 
 
 
+Image.count({} , (err , data)=> {
+   if ( err ) console.log( err.message );
+    console.log ( `There are ${data} pictues in this database` );
+});
 UserModel.count({} , (err , data)=> {
    if ( err ) console.log( err.message );
-    console.log ( `There are ${data} in this database` );
+    console.log ( `There are ${data} users in this database` );
 });
-
+PostModel.count({} , (err , data)=> {
+   if ( err ) console.log( err.message );
+    console.log ( `There are ${data} post in this database` );
+});
 
 
 

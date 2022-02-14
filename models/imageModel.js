@@ -1,8 +1,9 @@
 
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema
 
-const imageSchema = new mongoose.Schema({
-   name: String,
+const ImageSchema = new mongoose.Schema({
+   owner: String,
    desc: String,
    img:
    {
@@ -12,5 +13,5 @@ const imageSchema = new mongoose.Schema({
 });
 
 //Image is a model which has a schema imageSchema
-
-module.exports = new mongoose.model('Image', imageSchema);
+const imageModel = mongoose.model("image", ImageSchema);
+module.exports = imageModel;

@@ -7,10 +7,30 @@
     <body>
         <h1>Edit Page</h1>
 
+        <%=post.author%>
+
+        <%=post.content%>
+        <%=data[0].firstName%>
+        <form class="form" action="/edit/<%=post.id%>?_method=PUT" method="POST">
+
+            <br/><input id ="nameVal" type="text" name="author" onchange='checkName(event)' value="<%=data[0].firstName%>"/><br/>
+
+            <!-- Subject:<br/> <input type="text" name="subject"/><br/> -->
+            <!-- <label for="subject">Choose Subject:</label> -->
+
+                <!-- <select class="input" id="post" name="subject" onchange='showInput(event)' size="1">
+                    <option  value="Post">Post</option>
+                    <option  value="Ride">Ride Alert</option>
+                </select><br><br> -->
 
 
+                Content:<br/> <input class="input" id="inputBox" type="text" name="content" value="<%=post.content%>"/></input/<br/>
+                <input class="input" id="postImg" type="text" name="img"/><br/>
 
-            
+            <input class="input" id=subPost type="submit" value="Create Post">
+        </form>
+
+
 
 
         </form>

@@ -5,32 +5,123 @@
         <meta charset="utf-8">
         <title></title>
     </head>
-    <body>
+    <body id="bod">
         <header>
-        
+            <a href="/upLoadImage">Upload An Image</a>
+
+
+
         </header>
         <div class="main">
 
 
 
+            <h1>Uploaded Images</h1>
+
+                    <div class="upperImg">
+
+
+                    <% allPhotos.forEach(function(image) {%>
+
+                        <%=image.path%>
+
+
+
+                                <h5><%= image.name %></h5>
+                                <p><%= image.desc %></p>
+                                <p><%= image.owner %></p></br>
+                                <p><%= image.data %></p>
+
+                                <% }) %>
+                            </div>
+
                             <div class="gallery">
-                                <%for(let i = 0; i<100; i++){%>
-                                            <div class="box">
-                                                <div class="clip" id='right'></div>
+                                <!-- once I figure out the images in DB then change this to show all photos -->
+
+
+                                        <%for(let val of allUsers){%>
+
+
+
+                                            <div class="box" id='boxes'  onclick = zoom('<%=val.img%>') style= "background-image: url('./photos/uploads/myImage-1644815057459')";>
+
+                                                <div class="clip" id='right' ></div>
                                                 <div class="clip" id='left'></div>
                                                 <div class="clip" id='up'></div>
                                                 <div class="clip" id='down'></div>
-                                                <span id='rightClip' class="clipper"></span>
-                                                <span id='leftClip' class="clipper"></span>
-                                                <span id='upClip' class="clipper"></span>
-                                                <span id='downClip' class="clipper"></span>
+                                                <span id='rightClip' class="clipper">Click to Zoom</span>
+                                                <span id='leftClip' class="clipper">Click to Zoom</span>
+                                                <span id='upClip' class="clipper">Click to Zoom</span>
+                                                <span id='downClip' class="clipper">Click to Zoom</span>
                                             </div>
-                                <%}%>
+
+                                <div id="myModal" class="modal">
+
+
+                                    <span class="close">&times;</span>
+
+
+                                    <div class="modal-content" id="img01" ></div>
+                                    <!-- <img class="modal-content" id="img01" src=> -->
+
+                                  <div id="caption"></div>
+                                </div>
+
+                                <%
+                            }%>
+
+
+                            <% allPhotos.forEach(function(image) {%>
+                                <p><%= image.name %></br>
+                                <%= image.desc %></br>
+                                <%= image.owner %></br>
+                                <%= image.path %></p>
+
+                            <div class="box" id='boxes'  onclick = zoom()>
+
+                                <img onclick = zoom() class='trying' id="try" src="data:image/<%=image.img.contentType%>;base64,
+                                     <%=image.img.data.toString('base64')%>">
+
+                                <div class="clip" id='right' ></div>
+                                <div class="clip" id='left'></div>
+                                <div class="clip" id='up'></div>
+                                <div class="clip" id='down'></div>
+                                <span id='rightClip' class="clipper">Click to Zoom</span>
+                                <span id='leftClip' class="clipper">Click to Zoom</span>
+                                <span id='upClip' class="clipper">Click to Zoom</span>
+                                <span id='downClip' class="clipper">Click to Zoom</span>
+                            </div>
+                            <%
+                        })%>
+
+
 
 
                             </div>
-        </div>
 
-</div>
+
+        </div>
+<script type="">
+
+const modal = document.getElementById("myModal");
+const modalImg = document.getElementById("img01");
+const image = document.getElementById('try')
+
+function zoom(img) {
+
+// const img = document.getElementById('boxes');
+    // console.log(img);
+  modal.style.display = "block";
+  modalImg.style.backgroundImage = `url(${img})`;
+   // modalImg.src = this.src;
+
+
+}
+const span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+</script>
     </body>
 </html>

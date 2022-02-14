@@ -276,20 +276,24 @@ ion-icon{
     opacity: 1;
     /* background-color: orange; */
 }
-.topSidePost{
-    height: 50%;
+.sidePost{
+    height: 100%;
     width: 100%;
     /* background-color: green; */
     overflow-y:hidden;
 }
-.sideImgContainer{
-    height: 50%;
+.middleImgContainer{
+    height: 100%;
     width: 100%;
     /* background-color: red; */
-    background-size: 100% 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-
+#hidePost{
+    display: none;
+}
 
 
 
@@ -467,6 +471,11 @@ ion-icon{
       display: none;
 
   }
+  #hidePost{
+      display: block;
+  }
+
+
 
   .hiddenHeaderName {
       display: flex;
