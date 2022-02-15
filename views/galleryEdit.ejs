@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/galleryEdit.css">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+
+    <body id="bod">
+        <header>
+
+            <h1>Photo provided by <%=userPhoto.UserName%></h1>
+        </header>
+        <div class="main">
+            <div class="mainEffect">
+                <div class="container">
+                    <div class="holder">
+                        <img class='img' src="data:image/<%=userPhoto.img.contentType%>;base64,<%=userPhoto.img.data.toString('base64')%>" alt="">
+                    </div>
+                    <% if(currentUser.UserName != userPhoto.UserName ){%>
+                        <input hidden class='butt'  TYPE="BUTTON" VALUE="noth" onclick = confirmDelete();>
+                        <%}else if(currentUser.UserName === userPhoto.UserName ){%>
+                        <input class='butt'  TYPE="BUTTON" VALUE="DELETE" onclick = confirmDelete() ;>
+                        <%}%>
+                </div>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+
+
+            <span class="close">&times;</span>
+            <div id="modalUser" class="modal-content">
+                <div class="modalButton">
+                    <p>Confirm You want to delete this photo</p>
+                    <form action="/photoDelete/<%= userPhoto.id %>/<%=currentUser.UserName%>?_method=DELETE" method="POST">
+                        <input class='butt' TYPE="submit" VALUE="DELETE" >
+                    </form>
+                </div>
+
+            </div>
+
+
+
+
+          <div id="caption"></div>
+        </div>
+
+    <script>
+
+
+        const modal = document.getElementById("myModal");
+        const modalImg = document.getElementById("img01");
+        const modalUser = document.getElementById("modalUser");
+        const modalNonUser = document.getElementById("modalNonUser");
+        const image = document.getElementById('bod')
+        const  userName = '<%= currentUser.UserName %>'
+
+        function confirmDelete() {
+          modal.style.display = "block";
+          image.style.backgroundColor = 'red';
+           // modalImg.src = this.src;
+
+        }
+
+        function deletePhoto(id) {
+            window.location.href=`/photoDelete/${id}/${userName}`;
+        }
+
+
+        const span = document.getElementsByClassName("close")[0];
+        span.onclick = function() {
+          modal.style.display = "none";
+          image.style.backgroundColor = 'rgb(40, 40, 40)';
+        }
+
+    </script>
+    </body>
+</html>

@@ -10,11 +10,17 @@
     </head>
     <body>
         <header>
-
+            <%=currentUser.UserName%>
             <div class="hiddenHeaderName">
-                <h1><%=data[0].firstName%></h1>
-                <h1>&nbsp<%=data[0].lastName%></h1>
+                <h1><%=data[0].UserName%></h1>
             </div>
+            <%if(  currentUser.UserName !=  data[0].UserName ){%>
+                <h1>Welcome to <%= data[0].UserName %>'s page </h1>
+
+            <% }else if( currentUser.UserName  ==  data[0].UserName){%>
+                <h1>Welcome Home </h1>
+            <%}%>
+
         </header>
         <div class="main">
             <div class="headerBox">
@@ -38,17 +44,18 @@
 
                 <div class="photo">
 
-                    <img class= "img" id="<%=data[0].img%>" src="<%=data[0].img%>" alt=""></img>
+                    <img class= "img" id="<%=data[0].profilePicture%>" src="<%=data[0].profilePicture%>" alt=""></img>
                 </div>
 <%#  ============================================================= %>
                 <div class="rightHeader">
                     <div class="rightHeaderContainer">
-                        
-                        <a class="edit" href="/edit/<%=data[0].firstName%>/edit"><div class="butt1"><div id="edit">Edit</br></div></div></a>
 
-                        <a class="edit" href="/newPost/<%=data[0].firstName%>/newPost"><div class="butt1"><div id="edit">Post</div></div></a>
+                        <a class="edit" href="/edit/<%=data[0].UserName%>/edit"><div class="butt1"><div id="edit">Edit</br></div></div></a>
 
-                        <a href="/gallery">Gallery</a>
+                        <a class="edit" href="/newPost/<%=data[0].UserName%>/newPost"><div class="butt1"><div id="edit">Post</div></div></a>
+
+                        <a href="/gallery/<%=data[0].UserName%>">Gallery</a>
+                        <a href="/">Logout</a>
 
                     </div>
                 </div>
@@ -66,8 +73,8 @@
                   <div class="carouselBox">
 
                              <%for(let val of allUsers){%>
-                                 <a href="/profile/<%=val.firstName%>" >
-                      <div id="s1" class="horizontal-card" style="background-image: url('<%=val.img%>')">
+                                 <a href="/profile/<%=val.UserName%>/<%=currentUser.UserName%>" >
+                      <div id="s1" class="horizontal-card" style="background-image: url('<%=val.profilePicture%>')">
                           <%=val.UserName%>
 
                       </div>
@@ -123,19 +130,13 @@
 <%#  ============================================================= %>
 
                 <div class="gallery">
-                    <%for(let val of post){%>
-                        <%if(val.subject == "Post" ){%>
-                            <div class="box" id='hidePost' onclick="edit('<%=val.id%>')">
-                                <%}else{%>
-
-                         <div class="box" onclick="edit('<%=val.id%>')">
-                             <%}%>
-
+                    <%for(let val of allPhotos){%>
+                         <div class="box" onclick="toGallery()">
                             <div class="postDiv">
-                                <div class="middleImgContainer" style="background-image: url('<%=val.img%>')" >
+                                <div class="middleImgContainer">
+                                    <img class="imageMiddle" src="data:image/<%=val.img.contentType%>;base64,<%=val.img.data.toString('base64')%>" alt="">
                                     <!-- <h2><%=val.subject%></h2> -->
-                                    <h3><%=val.subject%> by <%=val.author%></h3>
-                                    <%=val.createdAt%>
+
                                 </div>
                             </div>
 
@@ -149,10 +150,10 @@
 
 
                                 </div>
-                                <div class= 'sideClipBox'><p><%=val.content%></div></p></span>
-                            <span id='leftClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
-                            <span id='upClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
-                            <span id='downClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><%=val.content%></div></span>
+                                <div class= 'sideClipBox'><p><h3>Posted by <%=val.UserName%></h3><%=val.desc%></div></p></span>
+                            <span id='leftClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.desc%></div></span>
+                            <span id='upClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.desc%></div></span>
+                            <span id='downClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.desc%></div></span>
                         </div>
                     <%}%>
                 </div>
@@ -163,19 +164,22 @@
                             <h1>Post</h1>
 
                             <%for(let val of post){%>
-                                <%if(val.subject == "Post" ){%>
+                                <%if('currentUser.UserName' == 'val.UserName'){%>
+                            <article class="postBox" onclick="edit('<%=val.id%>')">
+                                <%}else if('currentUser.UserName ' != 'val.UserName'){%>
+                                    <article class="postBox" onclick="view('<%=val.id%>')">
+                                        <%}%>
+                                 <div class="sidePost">
 
-                            <article class="postBox" onclick="edit('<%=val.id%>')">                                    <div class="sidePost">
-                                            <!-- <h2><%=val.subject%></h2> -->
-                                            <h3><%=val.subject%> by <%=val.author%></h3>
-                                            <div id="edit">Post<p><%=val.id%></p>
+                                            <h3><%=val.subject%> by <%=val.UserName%></h3>
+                                        <div class="sidePostPic" style= "background-image:url(<%=val.img%>)" id="edit">Post
                                             <p><%=val.content%></p>
-                                        </div>
+                                </div>
 
                                     </div>
                                 </article>
 
-                            <%}}%>
+                            <%}%>
                         </article>
                     </div>
                 </div>
@@ -187,10 +191,17 @@
         <footer>
         </footer>
         <script>
-        function edit(id){
-            window.location.href=`/edit/${id}/edit`;
+        function edit(userName){
+            if( '<%=currentUser.UserName%>' != `${userName}`){
+                window.location.href=`/gallery/${'<%=currentUser.UserName%>'}`;
+            }else if( '<%=currentUser.UserName%>'  == `${userName}`)
+            window.location.href=`/edit/${userName}/edit`;
         }
 
+        function toGallery(){
+            window.location.href=`/gallery/${'<%=currentUser.UserName%>'}`;
+
+        }
 
             const sliders = document.querySelector('.carouselBox')
 

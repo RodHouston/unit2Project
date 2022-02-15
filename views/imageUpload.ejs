@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body id='bod'>
     <h1>Upload Image</h1>
     <!-- <form action="/uploadphoto" enctype="multipart/form-data" method="POST">
         <input type="file" name="myImage" accept="image/*">
@@ -15,10 +15,17 @@
 
 	<form action="/uploadphoto" method="POST" enctype="multipart/form-data">
             <div>
-                <label for="owner">Author</label>
-                <input type="text" id="name" placeholder="Name"
-                       value="" name="owner" required>
+                <label for="UserName">UserName = <%=currentUser.UserName%></label>
+                <input hidden type="text" id="nameVal"
+                value="<%=currentUser.UserName%>"
+                        name="UserName" required>
             </div>
+            <label for="subject">Choose Subject:</label>
+
+                <select class="input" id="post" name="subject" onchange='showInput(event)' size="1">
+                    <option  value="Post">Post</option>
+                    <option  value="Ride">Ride Alert</option>
+                </select><br><br>
 			<div>
                 <label for="desc">Image Description</label>
                 <textarea id="desc" name="desc" value="" rows="2"
@@ -28,12 +35,31 @@
 
             <div>
                 <label for="myImage">Upload Image</label>
-                <input type="file" id="image"
+                <input type="file" id="postImg"
                        name="myImage" value="" required>
             </div>
             <div>
-                <button type="submit">Submit</button>
+                <button class="input" id=subPost type="submit">Submit</button>
             </div>
         </form>
+        <script>
+            function showInput(e) {
+                if(document.getElementById('post').value == "Ride"){
+                    document.getElementById('postImg').style.display = 'flex';
+                }else
+                if(document.getElementById('post').value == "Post"){
+                    document.getElementById('bod').style.backgroundColor = 'red';
+                }
+            }
+            function checkName(e) {
+                if(document.getElementById('nameVal').value == ""){
+                    document.getElementById('subPost').style.display = 'block';
+                }else
+                if(document.getElementById('nameVal').value != ""){
+                    document.getElementById('bod').style.backgroundColor = 'red';
+                    document.getElementById('subPost').style.display = 'none';
+                }
+            }
+        </script>
 </body>
 </html>

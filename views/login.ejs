@@ -35,12 +35,10 @@
 
 
 
+
         <script>
             function login() {
-              <%# /*DispWin = window.open('','NewWin', 'toolbar=no,status=no,width=300,height=200')
-              message = "<ul><li><b>NAME: </b>" + document.form1.firstName.value;
-              DispWin.document.write(message); */%>
-              window.location.href=`/profile/${document.form1.firstName.value}`
+              window.location.href=`/profile/${document.form1.UserName.value}/${document.form1.UserName.value}`
             }
         </script>
     </body>

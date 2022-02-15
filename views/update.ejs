@@ -7,13 +7,13 @@
     <body>
         <h1>Edit Page</h1>
 
-        <%=post.author%>
+        <%=post.UserName%>
 
         <%=post.content%>
-        <%=data[0].firstName%>
+        <%=data[0].UserName%>
         <form class="form" action="/edit/<%=post.id%>?_method=PUT" method="POST">
 
-            <br/><input id ="nameVal" type="text" name="author" onchange='checkName(event)' value="<%=data[0].firstName%>"/><br/>
+            <br/><input id ="nameVal" type="text" name="UserName" onchange='checkName(event)' value="<%=data[0].UserName%>"/><br/>
 
             <!-- Subject:<br/> <input type="text" name="subject"/><br/> -->
             <!-- <label for="subject">Choose Subject:</label> -->

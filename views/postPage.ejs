@@ -16,12 +16,12 @@
                         <div class="userImg" style="background-image: url('<%=data[0].img%>')">
 
                         </div>
-                        <h3><%=data[0].firstName%> <%=data[0].lastName%></h3>
+                        <h3><%=data[0].UserName%> <%=data[0].lastName%></h3>
                     </div>
 
-                    <form class="form" action="/newPost/<%=data[0].firstName%>" method="POST">
+                    <form class="form" action="/newPost/<%=data[0].UserName%>" method="POST">
 
-                        <br/><input id ="nameVal" type="text" name="author" onchange='checkName(event)' value="<%=data[0].firstName%>"/><br/>
+                        <br/><input id ="nameVal" type="text" name="UserName" onchange='checkName(event)' value="<%=data[0].UserName%>"/><br/>
 
                         <!-- Subject:<br/> <input type="text" name="subject"/><br/> -->
                         <label for="subject">Choose Subject:</label>
@@ -33,7 +33,7 @@
 
 
                             Content:<br/> <textarea class="input" id="inputBox" type="text" name="content" /></textarea/<br/>
-                            <input class="input" id="postImg" type="text" name="img"/><br/>
+                            Please paste url. ex:https://i.imgur.com/Q8vh9AO.jpg<br/><input class="input" id="postImg" type="text" name="img"/><br/>
 
                         <input class="input" id=subPost type="submit" value="Create Post">
                     </form>
@@ -63,10 +63,10 @@
                 }
             }
             function checkName(e) {
-                if(document.getElementById('nameVal').value == "<%=data[0].firstName%>"){
+                if(document.getElementById('nameVal').value == "<%=data[0].UserName%>"){
                     document.getElementById('subPost').style.display = 'block';
                 }else
-                if(document.getElementById('nameVal').value != "<%=data[0].firstName%>"){
+                if(document.getElementById('nameVal').value != "<%=data[0].UserName%>"){
                     document.getElementById('bod').style.backgroundColor = 'red';
                     document.getElementById('subPost').style.display = 'none';
                 }

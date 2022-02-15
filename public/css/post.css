@@ -1,0 +1,72 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(40, 40, 40);
+
+}
+header{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color:rgb(65, 65, 65);
+    box-shadow: 10px 10px 10px rgba(0,0,0,1);
+}
+.main{
+    width:60%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .8);
+    margin: auto;
+}
+.topContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height:500px;
+    background-color: red;
+    padding: 10px;
+}
+form{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+.userInfo{
+    width: 100%;
+    height:50px;
+    background-color: yellow;
+}
+.input{
+    border: none;
+    border-bottom: 1px solid rgba(10, 180, 180, 1);
+    background: rgba(10, 10, 10, .5);
+    color: rgba(255,255,255,.5);
+    outline: none;
+}
+#inputBox{
+    width:100%;
+    height: 200px;
+}
+#postImg{
+    display: none;
+}
+#subPost{
+    width: 100%;
+    height: 25px;
+}
+#nameVal{
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+  .main{
+      width:90%;
+  }
+
+}
