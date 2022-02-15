@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/css/userProfile.css">
+    <meta charset="utf-8">
+    <title></title>
+</head>
+    <body>
+        <header>
+            <h1>userProfile</h1>
+        </header>
+        <div class="main">
+            <div class="bodyHead">
+                <div class="coverPhotoContainer">
+                    <div class="shade1">
+
+                        <div class="coverPhoto">
+                        </div>
+                        <div class="profilePhoto">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="bufferBox">
+                <div class="profilePhotoWide">
+                </div>
+                <div class="userName">
+                    <h1><%=data[0].UserName%> <%=data[0].UserName%></h1>
+                    <h3>(<%=data[0].UserName%>)</h3>
+                </div>
+
+
+            </div>
+
+            <div class="bodyDiv">
+                <div class="bodyLeftSide">
+                    <div class="shade">
+                    <div class="friends">
+                        <div class="carouselBox">
+                          <%for(let val of allUsers){%>
+                            <a href="/userProfile/<%=val.UserName%>/<%=currentUser.UserName%>" >
+                                <div id="s1" class="horizontal-card" style="background-image: url('<%=val.profilePicture%>')">
+                              <%=val.UserName%>
+                                </div>
+                            </a>
+                        <%}%>
+                        </div>
+
+
+
+                    </div>
+                    </div>
+
+                </div>
+                <div class="bodyRightSide">
+                    <div class="shade">
+                        <article class="postContainer">
+                            <% if(data[0].UserName === currentUser.UserName ){%>
+                                <h1>Your Post</h1>
+                                <%}else if(data[0].UserName != currentUser.UserName ){%>
+
+                            <h1><%=data[0].UserName%> Post</h1>
+                            <%}%>
+
+
+                            <%for(let val of post){%>
+
+
+                                    <% if(data[0].UserName === val.UserName ){%>
+                                    <article class="postBox" onclick="edit('<%=val.id%>')">
+
+
+
+                                    <div class="sidePost">
+                                        <h3><%=val.subject%> by <%=val.UserName%></h3>
+                                        <div class="sidePostPic" style= "background-image:url(<%=val.img%>)" id="edit">Post
+                                            <p><%=val.content%></p>
+                                        </div>
+                                    </div>
+                                </article>
+                            <%}}%>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </body>
+</html>

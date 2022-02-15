@@ -52,8 +52,10 @@ header{
 .name{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
-    font-size: 20px;
+    font-size:1.5vw;
+
 }
 .upperIcons{
     width: 100%;
@@ -76,13 +78,16 @@ header{
 .photo{
     display: flex;
     width: 35%;
+    min-width: 200px;
     height: 200px;
     justify-content: center;
     align-items: center;
+    border-radius: 100px;
 }
 .img{
     width: 200px;
     height: 200px;
+    border-radius: 100px;
 }
 
 .bodyHead{
@@ -299,7 +304,7 @@ ion-icon{
     height: 100%;
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center;   
+    background-position: center;
 }
 
 

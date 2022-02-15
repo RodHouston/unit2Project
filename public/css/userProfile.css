@@ -1,0 +1,352 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+body{
+    background-color: rgb(40, 40, 40);
+
+}
+header{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color:rgb(65, 65, 65);
+    box-shadow: 10px 10px 10px rgba(0,0,0,1);
+}
+.titleName{
+
+}
+.hiddenHeaderName{
+    display: none;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 90%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    margin: auto;
+    color:white;
+}
+.headerBox{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 200px;
+    border: 2px solid rgba(255, 255, 255, .5);
+}
+
+.photo{
+    display: flex;
+    width: 35%;
+    min-width: 200px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+}
+.img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
+
+.bodyHead{
+    display: flex;
+    flex-direction: column;
+    position:  relative;
+    width: 100%;
+    height: 30vh;
+    border: 2px solid rgba(255, 255, 255, .5);
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.coverPhotoContainer{
+    width: 100%;
+    height: 100%;
+    background-color: red
+    background-size: contain;
+    background-image: url('/photos/gal3.jpeg');
+    /* background-repeat: no-repeat; */
+    background-position: center;
+
+    /* backdrop-filter: blur(10px); */
+
+}
+.coverPhoto{
+    width: 90%;
+    height: 90%;
+    background-color: purple;
+    border-radius: 0 0 10px 10px;
+    margin: 0 auto;
+}
+.shade1{
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .8);
+}
+.bufferBox{
+    display: flex;
+    width: 100%;
+    height: 20vh;
+    background-color: rgb(15, 15, 15);
+    padding: 5px;
+}
+.profilePhotoWide{
+    width: 20vh;
+    height: 100%;
+    background-color: red;
+    background-size: 100% 100%;
+    background-image: url('/photos/cp.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 20px;
+    border-radius: 50%;
+    z-index: 2;
+    border: 2px solid rgba(255, 255, 255, .5);
+}
+
+.carousel{
+    height: 200px;
+    width: 55%;
+    position: relative;
+    margin-bottom: 60px;
+    margin: auto;
+}
+ .leftScroll,
+ .rightScroll {
+    color: white;
+    font-weight: bold;
+    height: 180px;
+    width: 10px;
+    line-height:200px;
+    font-size: 20px;
+    text-align: center;
+    align-items: center;
+    border: 2px solid white;
+    background-color: rgb(0, 213, 181);
+    top:10px;
+    z-index: 3;
+    display: inline-block;
+}
+.leftScroll{
+    position: absolute;
+    left: -10px;
+    box-shadow: 10px 0px 10px rgb(0, 91, 91);
+}
+
+.rightScroll{
+    position: absolute;
+    right: -10px;
+    box-shadow: -10px 0px 10px rgb(0, 91, 91);
+}
+.carouselBox{
+    height: 350px;
+    width: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-align: center;
+    padding-bottom: 10px ;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.horizontal-card{
+    position: relative;
+    min-width:100px;
+    max-width: 100px;
+    height: 150px;
+    background-image: linear-gradient(to bottom left, rgb(204, 199, 200),whitesmoke );
+    padding :5px;
+    margin: 5px 5px;
+    cursor: pointer;
+    opacity: 1;
+    transition: 0.3s ease;
+    z-index= 2;
+    border-radius: 5px;
+    border: 2px solid white;
+    box-shadow: 5px 5px 10px rgb(0, 91, 91);
+    background-size: 100% 100%;
+
+}
+.horizontal-card:hover{
+    transform: scale(1.2);
+    z-index: 3;
+}
+.bodyDiv{
+    display: flex;
+    flex-direction:row;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+}
+.shade{
+    display: flex;
+
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .9);
+}
+.bodyLeftSide{
+    display: flex;
+    flex-direction: column;
+    width:40%;
+    min-width: 375px;
+    height: 100vh;
+    background-color: yellow;
+
+    background-image: url('/photos/galaxy.jpeg');
+    background-repeat: no-repeat;
+    background-size: 100% 100vh;
+    flex-shrink:0;
+}
+.friends{
+    display: flex;
+    flex-wrap: wrap;
+    width: 350px;
+    height: 350px;
+    background: rgba(41, 41, 41,.3);
+    margin: 50px auto;
+    padding: 10px;
+    flex-shrink:0;
+    border-radius: 8px;
+}
+
+/* =========== right side post========= */
+.bodyRightSide{
+
+    width: 60%;
+    height: 100vh;
+    background-color: yellow;
+    background-image: url('/photos/galaxy.jpeg');
+    background-repeat: no-repeat;
+    background-size: 100% 100vh;
+
+}
+.postContainer{
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 5px;
+    /* background-color: lightgray; */
+    overflow-x: hidden;
+}
+.postBox{
+    width: 95%;
+    height: 200px;
+    margin: 4px;
+    font-size: 90%;
+    background: rgba(41, 41, 41,.3);
+    color:rgb(187, 187, 187);
+    border-radius: 8px;
+    margin: 15px auto;
+
+    padding: 5px;
+}
+.postDiv{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    /* background-color: orange; */
+}
+.sidePost{
+    height: 100%;
+    width: 100%;
+    /* background-color: green; */
+    overflow-y:hidden;
+}
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 700px) {
+  body {
+    background-color: pink;
+  }
+  .bodyLeftSide{
+      display: none;
+  }
+  .gallery{
+      width: 100%;
+  }
+  .main{
+      width: 100%;
+  }
+  .titleName{
+      display: none;
+
+  }
+  #hidePost{
+      display: block;
+  }
+  .bodyHead{
+
+  }
+  .bodyRightSide{
+      width: 100%;
+  }
+  .coverPhotoContainer{
+      width: 100%;
+      height: 100%;
+      background-color: red;
+  }
+  .profilePhotoWide{
+      display: none;
+  }
+  .profilePhoto{
+      position: absolute;
+      width: 250px;
+      height: 25vh;
+      background-color: red;
+      background-size: 150px 200px;
+      background-image: url('/photos/cp.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: auto;
+      top: 20%;
+      right:20%;
+      left:20%;
+
+      border-radius: 50%;
+      z-index: 2;
+      border: 5px solid rgba(255, 255, 255, .5);
+  }
+
+
+
+
+  .hiddenHeaderName {
+      display: flex;
+      width: 100px;
+      margin: 0 20px;
+  }
+  .name{
+      display: none;
+  }
+  .leftHeaderContainer h3{
+      display: none;
+  }
+
+  .gallery{
+      width: 100%;
+  }
+  .carousel{
+      width: 90%;
+  }
+
+}

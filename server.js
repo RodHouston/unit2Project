@@ -193,6 +193,21 @@ app.get('/profile/:UserName/:CurrentUser' , (req, res) => {
         })
     }).sort({"_id": -1})
 });
+app.get('/userProfile/:UserName/:CurrentUser' , (req, res) => {
+    PostModel.find({}, (err, allPost) => {
+        Image.find({}, (err, allPhotos) => {
+            UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
+                UserModel.find({}, (err, allUsers) => {
+                    UserModel.find({UserName: req.params.UserName}, (err, user) => {
+                        res.render('userProfile.ejs', {data: user, post:allPost, allUsers:allUsers,
+                        currentUser: currentUser, allPhotos:allPhotos});
+                    })
+                })
+            })
+        })
+    }).sort({"_id": -1})
+});
+
 
 
 //===========================================================================
