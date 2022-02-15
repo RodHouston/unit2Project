@@ -267,18 +267,20 @@ app.put('/edit/:id', (req, res) => {
         let UserName = userPost.UserName;
         // console.log(`this is name ${UserName}`);
 
-
+    Image.find({}, (err, allPhotos) => {
     PostModel.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, (err, post) => {
         PostModel.find({UserName: UserName}, (err, usersPost) => {
             UserModel.find({}, (err, allUsers) => {
-                UserModel.find({UserName: UserName}, (err, user) => {
-                    res.render('profile.ejs', {data: user, post:usersPost, allUsers:allUsers});
-                })
+                UserModel.find({UserName: UserName}, (err, currentUser) => {
+                    res.redirect(`/profile/${UserName}/${UserName}`)
+                //      {data: currentUser, currentUser: currentUser, post:usersPost, allUsers:allUsers, allPhotos, allPhotos});
+                //
+            })
                 })
             })
         }).sort({"_id": -1})
     })
-
+    })
 });
 
 
@@ -295,6 +297,11 @@ app.get('/newPost/:UserName/newPost', (req, res) => {
 
 app.post('/newPost/:UserName', (req, res) => {
     // console.log(req)
+
+    PostModel.create(req.body), (err, createdPost) => {
+        res.send(req.body);
+     }
+
     PostModel.find({UserName: req.params.UserName}, (err, userPost) => {
         Image.find({}, (err, allPhotos) => {
             UserModel.findOne({UserName: req.params.UserName}, (err, currentUser) => {
@@ -307,7 +314,7 @@ app.post('/newPost/:UserName', (req, res) => {
             })
         })
     }).sort({"_id": -1})
-});
+})
 
 
 

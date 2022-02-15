@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <link rel="stylesheet" href="/css/profile.css">
         <meta charset="utf-8">
         <title></title>
@@ -12,23 +12,21 @@
         <header>
             <%=currentUser.UserName%>
             <div class="hiddenHeaderName">
-                <h1><%=data[0].UserName%></h1>
+                <h1><%=currentUser.UserName%></h1>
             </div>
-            <%if(  currentUser.UserName !=  data[0].UserName ){%>
+
+            <%if( currentUser.UserName !=  data[0].UserName ){%>
                 <h1>Welcome to <%= data[0].UserName %>'s page </h1>
 
-            <% }else if( currentUser.UserName  ==  data[0].UserName){%>
+            <% }else if(currentUser.UserName  ==  data[0].UserName){%>
                 <h1>Welcome Home </h1>
             <%}%>
 
         </header>
         <div class="main">
             <div class="headerBox">
-<%#  ============================================================= %>
-
                 <div class="leftHeader">
                     <div class="leftHeaderContainer">
-
                         <div class='name'>
                             <h1><%=data[0].firstName%></h1>
                             <h1>&nbsp<%=data[0].lastName%></h1>
@@ -37,16 +35,13 @@
                         <div class="upperIcons">
 
                         </div>
-
                     </div>
                 </div>
-<%#  ============================================================= %>
 
                 <div class="photo">
-
                     <img class= "img" id="<%=data[0].profilePicture%>" src="<%=data[0].profilePicture%>" alt=""></img>
                 </div>
-<%#  ============================================================= %>
+
                 <div class="rightHeader">
                     <div class="rightHeaderContainer">
 
@@ -54,45 +49,30 @@
 
                         <a class="edit" href="/newPost/<%=data[0].UserName%>/newPost"><div class="butt1"><div id="edit">Post</div></div></a>
 
-                        <a href="/gallery/<%=data[0].UserName%>">Gallery</a>
+                        <a href="/gallery/<%=currentUser.UserName%>">Gallery</a>
                         <a href="/">Logout</a>
 
                     </div>
                 </div>
-
             </div>
-
-<%#  ============================================================= %>
 
             <div class="bodyHead">
-                <div class="cpIM">
-
-                </div>
-
+                <div class="cpIM"></div>
                 <div class="carousel">
-                  <div class="carouselBox">
-
-                             <%for(let val of allUsers){%>
-                                 <a href="/profile/<%=val.UserName%>/<%=currentUser.UserName%>" >
-                      <div id="s1" class="horizontal-card" style="background-image: url('<%=val.profilePicture%>')">
+                    <div class="carouselBox">
+                      <%for(let val of allUsers){%>
+                        <a href="/profile/<%=val.UserName%>/<%=currentUser.UserName%>" >
+                            <div id="s1" class="horizontal-card" style="background-image: url('<%=val.profilePicture%>')">
                           <%=val.UserName%>
-
-                      </div>
-                    </a>
+                            </div>
+                        </a>
                     <%}%>
-
+                    </div>
+                    <div class = "leftScroll"  onclick="scrollL()"><</div>
+                    <div class = "rightScroll"  onclick="scrollR()">></div>
                 </div>
-                      <div class = "leftScroll"  onclick="scrollL()"><</div>
-
-                      <div class = "rightScroll"  onclick="scrollR()">></div>
-                </div>
-                <div class="cpIM">
-
-                </div>
-
-
+                <div class="cpIM"></div>
             </div>
-<%#  ============================================================= %>
 
             <div class="bodyDiv">
                 <div class="bodyLeftSide">
@@ -125,83 +105,76 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-<%#  ============================================================= %>
 
                 <div class="gallery">
+                    <iframe src="https://www.google.com/maps/d/embed?mid=188AKtKofEFlJRHrRl4--eV9gn1zaO1jK&ehbc=2E312F" width="640" height="480"></iframe>
                     <%for(let val of allPhotos){%>
                          <div class="box" onclick="toGallery()">
                             <div class="postDiv">
                                 <div class="middleImgContainer">
                                     <img class="imageMiddle" src="data:image/<%=val.img.contentType%>;base64,<%=val.img.data.toString('base64')%>" alt="">
-                                    <!-- <h2><%=val.subject%></h2> -->
-
                                 </div>
                             </div>
-
 
                             <div class="clip" id='right'></div>
                             <div class="clip" id='left'></div>
                             <div class="clip" id='up'></div>
                             <div class="clip" id='down'></div>
-                            <span id='rightClip' class="clipper">
-                                <div class= "emptyClipBox">
 
+                            <span id='rightClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><p><h3>Posted by <%=val.UserName%></h3><%=val.desc%></div></p></span>
 
-                                </div>
-                                <div class= 'sideClipBox'><p><h3>Posted by <%=val.UserName%></h3><%=val.desc%></div></p></span>
                             <span id='leftClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.desc%></div></span>
+
                             <span id='upClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.desc%></div></span>
+
                             <span id='downClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.desc%></div></span>
                         </div>
                     <%}%>
                 </div>
-<%#  ============================================================= %>
+
                 <div class="bodyRightSide">
                     <div class="shade">
                         <article class="postContainer">
                             <h1>Post</h1>
-
                             <%for(let val of post){%>
-                                <%if('currentUser.UserName' == 'val.UserName'){%>
-                            <article class="postBox" onclick="edit('<%=val.id%>')">
-                                <%}else if('currentUser.UserName ' != 'val.UserName'){%>
-                                    <article class="postBox" onclick="view('<%=val.id%>')">
-                                        <%}%>
-                                 <div class="sidePost">
 
-                                            <h3><%=val.subject%> by <%=val.UserName%></h3>
+                                <% if(currentUser.UserName != val.UserName ){%>
+                                    <article class="postBox" onclick="toGallery()">
+                                    <%}else if(currentUser.UserName === val.UserName ){%>
+                                    <article class="postBox" onclick="edit('<%=val.id%>')">
+                                    <%}%>
+
+
+                                    <div class="sidePost">
+                                        <h3><%=val.subject%> by <%=val.UserName%></h3>
                                         <div class="sidePostPic" style= "background-image:url(<%=val.img%>)" id="edit">Post
                                             <p><%=val.content%></p>
-                                </div>
-
+                                        </div>
                                     </div>
                                 </article>
-
                             <%}%>
                         </article>
                     </div>
                 </div>
             </div>
-
         </div>
-<%#  ============================================================= %>
 
         <footer>
+
         </footer>
+
         <script>
-        function edit(userName){
-            if( '<%=currentUser.UserName%>' != `${userName}`){
+        let userName= '<%=currentUser.UserName%>'
+            function edit(id){
+                window.location.href=`/edit/${id}/edit`;
+
+            }
+
+            function toGallery(){
                 window.location.href=`/gallery/${'<%=currentUser.UserName%>'}`;
-            }else if( '<%=currentUser.UserName%>'  == `${userName}`)
-            window.location.href=`/edit/${userName}/edit`;
-        }
 
-        function toGallery(){
-            window.location.href=`/gallery/${'<%=currentUser.UserName%>'}`;
-
-        }
+            }
 
             const sliders = document.querySelector('.carouselBox')
 
@@ -218,24 +191,24 @@
                 // $switch.prependTo('.carouselBox')
 
                 sliders.scrollTo({
-                  top:0,
-                  left: (scrollAmount -= scrollPerClick),
-                  behavior: "smooth"
+                    top:0,
+                    left: (scrollAmount -= scrollPerClick),
+                    behavior: "smooth"
                 })
-                console.log(` scroll if ${scrollAmount}`);
-              }else{
+                    // console.log(` scroll if ${scrollAmount}`);
+                }else{
                 sliders.scrollTo({
-                top:0,
-                left: (scrollAmount -= scrollPerClick),
-                behavior: "smooth"
-              });
-              console.log(` scroll after ${scrollAmount}`);
-              }
+                    top:0,
+                    left: (scrollAmount -= scrollPerClick),
+                    behavior: "smooth"
+                });
+                    // console.log(` scroll after ${scrollAmount}`);
+                }
             }
 
             function scrollR(){
-              console.log('clicked right');
-              console.log( sliders.scrollWidth);
+                    // console.log('clicked right');
+                    // console.log( sliders.scrollWidth);
               if(scrollAmount< sliders.scrollWidth-200 ){
 
                 sliders.scrollTo({
@@ -247,13 +220,13 @@
                 console.log('you are at the end');
                 scrollAmount=0
 
-                // let $switch = $('.carouselBox').children().first().remove()
-                // $switch.appendTo('.carouselBox')
+                    // let $switch = $('.carouselBox').children().first().remove()
+                    // $switch.appendTo('.carouselBox')
 
                 sliders.scrollTo({
-                  top:0,
-                  left: (0),
-                  behavior: "smooth"
+                    top:0,
+                    left: (0),
+                    behavior: "smooth"
                 })
               }
             }
