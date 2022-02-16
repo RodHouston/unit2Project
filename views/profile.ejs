@@ -10,41 +10,46 @@
     </head>
     <body>
         <header>
-            <%=currentUser.UserName%>
+            <img class="cpIcons" src="/photos/cpIcon.png" alt="">
+            <h1 class='hide' >Cyclepaths&nbsp</h1>
+
+
             <div class="hiddenHeaderName">
                 <h1><%=data[0].UserName%></h1>
             </div>
 
             <%if( currentUser.UserName !=  data[0].UserName ){%>
-                <h1>Welcome to <%= data[0].UserName %>'s page </h1>
+                <h1 class="welcome" > Welcome to <%= data[0].UserName %>'s page </h1>
 
             <% }else if(currentUser.UserName  ==  data[0].UserName){%>
-                <h1>Welcome Home </h1>
+                <h1 class="welcome" > Welcome Home </h1>
             <%}%>
+            <img class="cpIcons" src="/photos/cpIcon.png" alt="">
 
         </header>
         <div class="main">
-            <div class="headerBox">
+            <div class="headerBox" style="background-image: url('<%=data[0].coverPhoto%>')">
                 <div class="leftHeader">
                     <div class="leftHeaderContainer">
                         <div class='name'>
                             <h1><%=data[0].firstName%></h1>
                             <h1>&nbsp<%=data[0].lastName%></h1>
                         </div>
-                        <h3>(<%=data[0].UserName%>)</h3>
+                        <h2>(<%=data[0].UserName%>)</h2>
                         <div class="upperIcons">
-
+                            <h3><%=data[0].city%>, <%=data[0].state%></h3>
+                            <h3><%=data[0].motto%></h3>
                         </div>
                     </div>
                 </div>
 
-                <div class="photo">
+                <div class="photo" style="background-image: url('<%=data[0].coverPhoto%>')">
                     <img class= "img" id="<%=data[0].profilePicture%>" src="<%=data[0].profilePicture%>" alt=""></img>
                 </div>
 
                 <div class="rightHeader">
                     <div class="rightHeaderContainer">
-
+                        <%=currentUser.UserName%>
                         <a class="edit" href="/edit/<%=data[0].UserName%>/edit"><div class="butt1"><div id="edit">Edit</br></div></div></a>
 
                         <a class="edit" href="/newPost/<%=data[0].UserName%>/newPost"><div class="butt1"><div id="edit">Post</div></div></a>
@@ -79,29 +84,29 @@
                     <div class="shade">
                         <div class="sideList">
                             <div class="linksDiv">
-                                <div class="links"><ion-icon name="person"></ion-icon><b>Profile</b></div>
+                                <div class="links"><a href="/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>" ><ion-icon name="person"></ion-icon><b>Profile</b></a></div>
 
-                                <div class="links"><ion-icon name="navigate"></ion-icon><b>Saved Routes</b></div>
+                                <a href="#"><div class="links"><ion-icon name="navigate"></ion-icon><b>Saved Routes</b></div></a>
 
-                                <div class="links"><ion-icon name="hammer"></ion-icon><b>Best Shops</b></div>
+                                <a href="#"><div class="links"><ion-icon name="hammer"></ion-icon><b>Best Shops</b></div></a>
 
-                                <div class="links"><ion-icon name="pricetag"></ion-icon><b>For Sale</b></div>
+                                <a href="#"><div class="links"><ion-icon name="pricetag"></ion-icon><b>For Sale</b></div></a>
 
-                                <div class="links"><ion-icon name="storefront"></ion-icon><b>Dealers</b></div>
+                                <a href="https://www.facebook.com/groups/231780711792541"><div class="links"><ion-icon name="logo-facebook"></ion-icon><b>Cyclepaths Facebook</b></div></a>
 
                                 <div id='spacerDiv' class="links"></div>
 
-                                <div class="links"><img class='brandImg' src="/photos/yamaha.png" alt=""><b>Yamaha</b></div>
+                                <a href="https://www.yamahamotorsports.com/"><div class="links"><img class='brandImg' src="/photos/yamaha.png" alt=""><b>Yamaha</b></div></a>
 
-                                <div class="links"><img class='brandImg' src="/photos/honda.png" alt=""><b>Honda</b></div>
+                                <a href="https://powersports.honda.com/"><div class="links"><img class='brandImg' src="/photos/honda.png" alt=""><b>Honda</b></div></a>
 
-                                <div class="links"><img class='brandImg' src="/photos/suz.png" alt=""><b>Suzuki</b></div>
+                                <a href="https://suzukicycles.com/"><div class="links"><img class='brandImg' src="/photos/suz.png" alt=""><b>Suzuki</b></div></a>
 
-                                <div class="links"><img class='brandImg' src="/photos/ducati.png" alt=""><b>Ducati</b></div>
+                                <a href="https://www.ducati.com/us/en/home"><div class="links"><img class='brandImg' src="/photos/ducati.png" alt=""><b>Ducati</b></div></a>
 
-                                <div class="links"><img class='brandImg' src="/photos/bmw.png" alt=""><b>BMW</b></div>
+                                <a href="https://www.bmwmotorcycles.com/"><div class="links"><img class='brandImg' src="/photos/bmw.png" alt=""><b>BMW</b></div></a>
 
-                                <div class="links"><img class='brandImg' src="/photos/kawi.png" alt=""><b>Kawasaki</b></div>
+                                <a href="https://www.kawasaki.com/en-us/"><div class="links"><img class='brandImg' src="/photos/kawi.png" alt=""><b>Kawasaki</b></div></a>
                             </div>
                         </div>
                     </div>
@@ -140,7 +145,7 @@
                             <%for(let val of post){%>
 
                                 <% if(currentUser.UserName != val.UserName ){%>
-                                    <article class="postBox" onclick="toGallery()">
+                                    <article class="postBox" onclick="window.location.href='/userProfile/<%=val.UserName%>/<%=currentUser.UserName%>';">
                                     <%}else if(currentUser.UserName === val.UserName ){%>
                                     <article class="postBox" onclick="edit('<%=val.id%>')">
                                     <%}%>
@@ -152,6 +157,7 @@
                                             <p><%=val.content%></p>
                                         </div>
                                     </div>
+                                    
                                 </article>
                             <%}%>
                         </article>

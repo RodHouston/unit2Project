@@ -39,6 +39,7 @@ header{
 h1{
     font-size: 50px;
     margin: 15px auto;
+    text-shadow:-5px 0 5px #0ff, 5px 0 5px #0ff;
 }
 .container{
     width: 90%;
@@ -59,6 +60,7 @@ h1{
 }
 .formHolder{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 60%;
@@ -113,6 +115,10 @@ p{
     0 0 10px white,
     -5px 0 5px #0ff,
     5px 0 5px #0ff;
+}
+#newUserButt{
+    font-size: 16px;
+    padding: 5px;
 }
 footer{
     width: 100%;

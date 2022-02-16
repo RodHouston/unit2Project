@@ -6,19 +6,13 @@ const UserSchema= new Schema({
     Password: {type:String, required:true, min:6, max:20},
     firstName: {type:String, required:true },
     lastName: String,
-    email: {type:String, required:true,  max:50, unique: true},
+    // email: {type:String, required:true,  max:50, unique: true},
     profilePicture:{type:String, default:"", required:true},
-    post: [{id:Number,
-        subject: String,
-        body:String
-    }],
-    followers:{type: Array, default: []},
-    following:{type: Array, default: []},
     isAdmin:{type: Boolean, default: false},
-    desc:{type: String, max:50},
+    motto:{type: String, max:50},
     city:{type: String, max:50},
     state:{type: String, max:50},
-    galleryPhoto:[String]
+    coverPhoto:String
 },
 {timestamps:true});
 

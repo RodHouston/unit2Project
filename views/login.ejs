@@ -21,12 +21,13 @@
                         </div>
                         <div class="formHolder">
                             <form name="form1">
-                                <p><b>UserName:</b><br/> <input class='input' TYPE="TEXT"  NAME="UserName"></p>
-                                <p><b>First Name:</b><br/> <input class='input' TYPE="TEXT"  NAME="firstName"></p>
-                                <p><b>Last Name: </b><br/> <input class='input' TYPE="TEXT"  NAME="lastName"></p>
+                                <p> <input class='input' TYPE="TEXT"  NAME="UserName"><br/><b>UserName:</b></p>
+                                <p> <input class='input' TYPE="TEXT"  NAME="firstName"><br/><b>First Name:</b></p>
+                                <p> <input class='input' TYPE="TEXT"  NAME="lastName"><br/><b>Last Name: </b></p>
                                 <p><input class='butt' TYPE="BUTTON" VALUE="LOGIN" onClick="login();"></p>
                             </form>
-                                <a class="edit" href="/newUser"><div class="butt1"><div id="edit">New User</br></div></div></a>
+
+                                <button class='butt' id='newUserButt' type="button" name="button"onclick="window.location.href='/newUser';">New User</button>
                         </div>
                     </div>
                 </div>

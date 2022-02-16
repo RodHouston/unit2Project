@@ -8,11 +8,24 @@ body{
 
 }
 header{
+    display: flex;
+    flex-direction: row;
     width: 100%;
     height: 50px;
     text-align: center;
     background-color:rgb(65, 65, 65);
     box-shadow: 10px 10px 10px rgba(0,0,0,1);
+    justify-content: center;
+    align-items: center;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.cpIcons{
+    width: 60px;
+    height: 60px;
+    margin: 0 20px;
 }
 .titleName{
 
@@ -33,6 +46,9 @@ header{
     width: 100%;
     height: 200px;
     border: 2px solid rgba(255, 255, 255, .5);
+    background-repeat: no-repeat;
+    background-size: 0;
+
 }
 .leftHeader{
     display: flex;
@@ -78,16 +94,22 @@ header{
 .photo{
     display: flex;
     width: 35%;
-    min-width: 200px;
-    height: 200px;
+    min-width: 170px;
+    height: 170px;
     justify-content: center;
     align-items: center;
     border-radius: 100px;
+    margin:   auto;
+
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 .img{
-    width: 200px;
-    height: 200px;
+    width: 170px;
+    height:170px;
     border-radius: 100px;
+    margin: auto;
+    border: 5px solid rgb(70, 70, 70);
 }
 
 .bodyHead{
@@ -103,15 +125,15 @@ header{
     width: 200px;
     height: 200px;
     /* background-color: red; */
-    background-size: 150px 200px;
-    background-image: url('/photos/cp.png');
+    background-size: 200px 200px;
+    background-image: url('/photos/cpIcon.png');
     background-repeat: no-repeat;
     background-position: center;
     margin: auto;
 }
 .carousel{
     height: 200px;
-    width: 55%;
+    width: 45%;
     position: relative;
     margin-bottom: 60px;
     margin: auto;
@@ -121,14 +143,14 @@ header{
     color: white;
     font-weight: bold;
     height: 180px;
-    width: 10px;
-    line-height:200px;
+    width: 15px;
+    line-height:175px;
     font-size: 20px;
     text-align: center;
     align-items: center;
     border: 2px solid white;
     background-color: rgb(0, 213, 181);
-    top:10px;
+    top:8px;
     z-index: 3;
     display: inline-block;
 }
@@ -199,7 +221,7 @@ header{
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: rgba(0, 0, 0, .9);
 }
 .sideList{
@@ -243,6 +265,7 @@ ion-icon{
     text-decoration: underline;
     transform: scale(1.1);
 }
+
 /* =========== right side post========= */
 .bodyRightSide{
 
@@ -270,7 +293,7 @@ ion-icon{
     background: rgba(41, 41, 41,.3);
     color:rgb(187, 187, 187);
     margin: 10px auto;
-
+    text-shadow:-5px -5px 4px #000, 5px 5px 4px #000;
     padding: 5px;
 }
 .postDiv{
@@ -463,10 +486,9 @@ ion-icon{
 
 
 
+
 @media only screen and (max-width: 700px) {
-  body {
-    background-color: pink;
-  }
+
   .bodyLeftSide{
       display: none;
   }
@@ -474,11 +496,11 @@ ion-icon{
       width: 100%;
   }
 
-}
-
-@media only screen and (max-width: 600px) {
   body {
-    background-color: lightblue;
+    /* background-color: lightblue; */
+  }
+  h1{
+      font-size: 25px;
   }
   .main{
       width: 100%;
@@ -487,15 +509,46 @@ ion-icon{
       display: none;
 
   }
+  .hide{
+      display: none;
+  }
+  .welcome{
+      display: none;
+  }
   #hidePost{
       display: block;
   }
-
-
+.cpIM{
+    display: none;
+}
+.headerBox{
+    background-size: 100% 100%;
+}
+.leftHeader{
+    display: none;
+}
+.rightHeader{
+    display: none;
+}
+.photo{
+    display: flex;
+    width: 20%;
+    min-width: 150px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    margin: auto;
+}
+.img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+}
 
   .hiddenHeaderName {
-      display: flex;
-      width: 100px;
+      display: block;
+      /* width: 100px; */
       margin: 0 20px;
   }
   .name{
@@ -503,15 +556,49 @@ ion-icon{
   }
   .leftHeaderContainer h3{
       display: none;
-  }
+
+ }
+ .bodyDiv{
+     flex-direction: column-reverse;
+
+     height: 100%;
+ }
   .bodyRightSide{
-      display: none;
+     width: 100%;
+     display: flex;
+     height: 400px;
+
+ }
+
+
+  .postContainer{
+      width: 100%;
+      height: 225px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      align-items: center;
+
+      /* background-color: red; */
+      /* margin-bottom: 500px; */
+
   }
+
+.postBox{
+    min-width: 400px;
+    margin: 10px;
+    height: 200px;
+
+}
   .gallery{
       width: 100%;
   }
   .carousel{
       width: 90%;
+  }
+  iframe{
+      height: 350px;
   }
 
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/userEdit.css">
+        <meta charset="utf-8">
+        <title>Edit Page</title>
+    </head>
+    <body>
+        <div class="main">
+            <div class="mainEffect">
+
+
+
+                <h1><%=currentUser.UserName%></h1>
+
+
+                <div class="container">
+                    <div class="holder">
+
+                        <div class="formHolder">
+        <form class="form" action="/editUser/<%=currentUser.id%>?_method=PUT" method="POST">
+            <div class="pair">
+                <div class="fields" > <input type="text" value="<%=currentUser.UserName%>" name="UserName"/>UserName:<br/> </div>
+                <div class="fields" > <input type="text"  value="<%=currentUser.Password%>" name="Password"/>Password:<br/> </div>
+            </div>
+            <div class="pair">
+                <div class="fields" > <input type="text"  value="<%=currentUser.firstName%>" name="firstName"/> First Name:<br/> </div>
+
+                <div class="fields" > <input type="text" value="<%=currentUser.lastName%>" name="lastName"/>Last Name:<br/> </div>
+            </div>
+            <div class="pair">
+            <!-- Email:<br/> <input type="text" name="email"/><br/> -->
+                <div class="fields" > <input type="text" value="<%=currentUser.city%>" name="city"/> City:<br/> </div>
+                <div class="fields" > <input type="text" value="<%=currentUser.state%>" name="state"/> State: <br/> </div>
+            </div>
+            <div class="fields" >
+                <textarea rows="6" cols="60" type="text" placeholder="<%=currentUser.motto%>" name="motto"></textarea> Motto: <br/>
+            </div>
+
+                <input class="imageField" type="text" value="<%=currentUser.profilePicture%>" name="profilePicture"><br/>
+                Profile Picture: *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
+                <input class="imageField" type="text" value="<%=currentUser.coverPhoto%>" name="coverPhoto"><br/>
+                Profile Picture: *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
+
+            <input class='butt' id=subEdit type="submit" value="Edit Profile">
+            <button class='butt' type="button" name="button" onclick="window.location.href='/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>';">Back To Profile</button>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+    </body>
+</html>

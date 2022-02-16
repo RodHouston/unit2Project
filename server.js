@@ -178,7 +178,7 @@ app.post('/login',(req, res) => {
 
 
 //===========================================================================
-//============== loads profile page with info found from first name key
+//============== loads profile/wall page with info found from first name key
 app.get('/profile/:UserName/:CurrentUser' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
         Image.find({}, (err, allPhotos) => {
@@ -193,6 +193,8 @@ app.get('/profile/:UserName/:CurrentUser' , (req, res) => {
         })
     }).sort({"_id": -1})
 });
+//===========================================================================
+//============== userProfile Page
 app.get('/userProfile/:UserName/:CurrentUser' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
         Image.find({}, (err, allPhotos) => {
@@ -297,8 +299,25 @@ app.put('/edit/:id', (req, res) => {
     })
     })
 });
+//===========================================================================
+//==== Edit User Info/DELETE profile. =======
+app.get('/editUser/:userName', (req, res) => {
+    UserModel.findOne({UserName: req.params.userName}, (err, user) => {
+        console.log('we here');
+        console.log(user);
+        res.render('userEdit.ejs', {currentUser: user});
+    })
+});
 
+app.put('/editUser/:id', (req, res) => {
+    // console.log(res);
+    UserModel.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, (err, user) => {
+        let UserName = user.UserName;
+                        res.redirect(`/userProfile/${UserName}/${UserName}`)
 
+            })
+        
+    })
 //===========================================================================
 //==== Creates new post. =======
 app.get('/newPost/:UserName/newPost', (req, res) => {
@@ -334,52 +353,6 @@ app.post('/newPost/:UserName', (req, res) => {
 
 
 
-
-//
-// app.get('/profile/:name', (req, res) => {
-//     PokemonModel.find({name: req.params.name}, (err, pokemon) => {
-//         PokemonModel.find({}, (err, allPokemon) => {
-//             res.render('show.ejs', { data: pokemon, all: allPokemon }
-//         );
-//         })
-//     })
-// })
-// app.put('/pokemon/:name', (req, res) => {
-//     PokemonModel.findOneAndUpdate({
-//         name: req.params.name
-//     }, req.body, {
-//         new: true
-//     }, (err, data) => {
-//         res.redirect('/index');
-//     });
-// });
-
-// app.delete('/pokemon/:name', (req, res) => {
-//     PokemonModel.findOneAndDelete({
-//         name: req.params.name
-//     }, (err, foundPokemon) => {
-//         res.redirect('/index')
-//     });
-// });
-
-// app.get('/pokemon/new', (req, res) => {
-//     res.render('new.ejs');
-// })
-
-
-
-
-// app.get('/index', (req, res) => {
-//     PokemonModel.find({}, (err, allPokemon) => {
-//         res.render(
-//             'index.ejs', {
-//                 data: allPokemon
-//             }
-//         )
-//     }).sort({
-//         "id": 1
-//     })
-// })
 
 
 

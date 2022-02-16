@@ -10,27 +10,35 @@
 </head>
     <body>
         <header>
-            <h1>userProfile</h1>
+            <img class="cpIcons" src="/photos/cpIcon.png" alt="">
+            <h1>Cyclepaths</h1>
+            <img class="cpIcons" src="/photos/cpIcon.png" alt="">
         </header>
         <div class="main">
             <div class="bodyHead">
                 <div class="coverPhotoContainer">
                     <div class="shade1">
 
-                        <div class="coverPhoto">
+                        <div class="coverPhoto" style="background-image: url('<%=data[0].coverPhoto%>')">
                         </div>
-                        <div class="profilePhoto">
+                        <div class="profilePhoto" style="background-image: url('<%=data[0].profilePicture%>')">
                         </div>
                     </div>
 
                 </div>
             </div>
             <div class="bufferBox">
-                <div class="profilePhotoWide">
+                <div class="profilePhotoWide" style="background-image: url('<%=data[0].profilePicture%>')">
                 </div>
                 <div class="userName">
-                    <h1><%=data[0].UserName%> <%=data[0].UserName%></h1>
+                    <h1><%=data[0].firstName%> <%=data[0].lastName%></h1>
                     <h3>(<%=data[0].UserName%>)</h3>
+
+                <div class="linkBox">
+                    <button class='butt' type="button" onclick="window.location.href='/gallery/<%=currentUser.UserName%>';">Photos</button>
+                    <button class='butt' type="button" name="button" onclick="window.location.href='/editUser/<%=currentUser.UserName%>';">Edit</button>
+                    <button class='butt' type="button"  onclick="window.location.href='/profile/<%=currentUser.UserName%>/<%=currentUser.UserName%>';">Home</button>
+                </div>
                 </div>
 
 
@@ -39,22 +47,22 @@
             <div class="bodyDiv">
                 <div class="bodyLeftSide">
                     <div class="shade">
-                    <div class="friends">
-                        <div class="carouselBox">
-                          <%for(let val of allUsers){%>
-                            <a href="/userProfile/<%=val.UserName%>/<%=currentUser.UserName%>" >
-                                <div id="s1" class="horizontal-card" style="background-image: url('<%=val.profilePicture%>')">
-                              <%=val.UserName%>
+                        <div class="friends">
+                            <div class="carousel">
+                                <div class="carouselBox">
+                                  <%for(let val of allUsers){%>
+                                    <a href="/userProfile/<%=val.UserName%>/<%=currentUser.UserName%>" >
+                                        <div id="s1" class="horizontal-card" style="background-image: url('<%=val.profilePicture%>')">
+                                      <%=val.UserName%>
+                                        </div>
+                                    </a>
+                                <%}%>
                                 </div>
-                            </a>
-                        <%}%>
+                                <div class = "leftScroll"  onclick="scrollL()"><</div>
+                                <div class = "rightScroll"  onclick="scrollR()">></div>
+                            </div>
                         </div>
-
-
-
                     </div>
-                    </div>
-
                 </div>
                 <div class="bodyRightSide">
                     <div class="shade">
@@ -63,22 +71,15 @@
                                 <h1>Your Post</h1>
                                 <%}else if(data[0].UserName != currentUser.UserName ){%>
 
-                            <h1><%=data[0].UserName%> Post</h1>
+                            <h1><%=data[0].UserName%>'s Post</h1>
                             <%}%>
-
-
                             <%for(let val of post){%>
-
-
-                                    <% if(data[0].UserName === val.UserName ){%>
+                                <% if(data[0].UserName === val.UserName ){%>
                                     <article class="postBox" onclick="edit('<%=val.id%>')">
-
-
-
-                                    <div class="sidePost">
+                                        <div class="sidePost">
                                         <h3><%=val.subject%> by <%=val.UserName%></h3>
                                         <div class="sidePostPic" style= "background-image:url(<%=val.img%>)" id="edit">Post
-                                            <p><%=val.content%></p>
+                                        <p><%=val.content%></p>
                                         </div>
                                     </div>
                                 </article>
@@ -87,10 +88,69 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
+        <script>
+        function edit(id){
+            window.location.href=`/edit/${id}/edit`;
+
+        }
+
+            const sliders = document.querySelector('.carouselBox')
+
+            let scrollAmount = 0;
+            let scrollPerClick = 650;
+
+            function scrollL(){
+              console.log('clicked left');
+              console.log(` scroll befor ${scrollAmount}`);
+              if(scrollAmount<=0){
+                scrollAmount=2790;
+
+                // let $switch = $('.carouselBox').children().last().remove()
+                // $switch.prependTo('.carouselBox')
+
+                sliders.scrollTo({
+                    top:0,
+                    left: (scrollAmount -= scrollPerClick),
+                    behavior: "smooth"
+                })
+                    // console.log(` scroll if ${scrollAmount}`);
+                }else{
+                sliders.scrollTo({
+                    top:0,
+                    left: (scrollAmount -= scrollPerClick),
+                    behavior: "smooth"
+                });
+                    // console.log(` scroll after ${scrollAmount}`);
+                }
+            }
+
+            function scrollR(){
+                    // console.log('clicked right');
+                    // console.log( sliders.scrollWidth);
+              if(scrollAmount< sliders.scrollWidth-200 ){
+
+                sliders.scrollTo({
+                  top:0,
+                  left: (scrollAmount += scrollPerClick),
+                  behavior: "smooth"
+                })
+              }else{
+                console.log('you are at the end');
+                scrollAmount=0
+
+                    // let $switch = $('.carouselBox').children().first().remove()
+                    // $switch.appendTo('.carouselBox')
+
+                sliders.scrollTo({
+                    top:0,
+                    left: (0),
+                    behavior: "smooth"
+                })
+              }
+            }
+        </script>
+
 
     </body>
 </html>
