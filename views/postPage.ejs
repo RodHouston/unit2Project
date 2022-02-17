@@ -24,16 +24,17 @@
                         <br/><input id ="nameVal" type="text" name="UserName" onchange='checkName(event)' value="<%=data[0].UserName%>"/><br/>
 
                         <!-- Subject:<br/> <input type="text" name="subject"/><br/> -->
-                        <label for="subject">Choose Subject:</label>
+                        <label for="subject">Choose Content:</label>
 
                             <select class="input" id="post" name="subject" onchange='showInput(event)' size="1">
-                                <option  value="Post">Post</option>
-                                <option  value="Ride">Ride Alert</option>
+                                <option  value="Post">Text Only</option>
+                                <option  value="Pic">Post with Pic</option>
                             </select><br><br>
 
 
                             Content:<br/> <textarea class="input" id="inputBox" type="text" name="content" /></textarea/<br/>
-                            Please paste url. ex:https://i.imgur.com/Q8vh9AO.jpg<br/><input class="input" id="postImg" type="text" name="img"/><br/>
+                            <span id="prompt">Please paste url. ex:https://i.imgur.com/Q8vh9AO.jpg<br/></span>
+                            <input class="input" id="postImg" type="text" name="img"/><br/>
 
                         <input class="input" id=subPost type="submit" value="Create Post">
                     </form>
@@ -55,11 +56,13 @@
         </div>
         <script>
             function showInput(e) {
-                if(document.getElementById('post').value == "Ride"){
+                if(document.getElementById('post').value == "Pic"){
                     document.getElementById('postImg').style.display = 'flex';
+                    document.getElementById('prompt').style.display = 'flex';
                 }else
                 if(document.getElementById('post').value == "Post"){
-                    document.getElementById('bod').style.backgroundColor = 'red';
+                    document.getElementById('postImg').style.display = 'none';
+                    document.getElementById('prompt').style.display = 'none';
                 }
             }
             function checkName(e) {

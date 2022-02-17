@@ -18,7 +18,7 @@ header{
     text-align: center;
     max-width: 80%;
     min-width: 420px;
-    height: 90vh;
+    height: 90%;
     margin: 20px auto;
     background-color:rgb(18, 18, 18);
     background-image: url('/photos/bike1.jpeg');
@@ -71,7 +71,7 @@ h1{
     color: rgb(187, 187, 187);
 }
 .form1{
-
+    white-space: normal;
     margin: 0 auto;
 }
 p{
@@ -101,6 +101,12 @@ input {
 }
 .imageField{
     width: 40vw;
+}
+.email{
+    display: block;
+
+    justify-content: center;
+    align-items: center;
 }
 .formIcon{
     width: 40%;
@@ -161,6 +167,9 @@ footer{
   }
 .pair {
       flex-direction: column;
+  }
+  .motto{
+      margin: auto;
   }
   .formIcon{
      display: none;

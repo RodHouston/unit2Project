@@ -7,6 +7,7 @@ body{
     background-color: rgb(40, 40, 40);
 
 }
+
 header{
     width: 100%;
     height: 50px;
@@ -59,6 +60,9 @@ form{
 }
 #nameVal{
     display: none;
+}
+#prompt{
+    display:none;
 }
 
 @media only screen and (max-width: 600px) {

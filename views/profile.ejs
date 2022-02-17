@@ -31,14 +31,18 @@
             <div class="headerBox" style="background-image: url('<%=data[0].coverPhoto%>')">
                 <div class="leftHeader">
                     <div class="leftHeaderContainer">
-                        <div class='name'>
-                            <h1><%=data[0].firstName%></h1>
-                            <h1>&nbsp<%=data[0].lastName%></h1>
+                        <div class='nameBox'>
+                            <div class='name'>
+                                <h1><%=data[0].firstName%></h1>
+                                <h1>&nbsp<%=data[0].lastName%></h1>
+                            </div>
+                            <h2>(<%=data[0].UserName%>)</h2>
                         </div>
-                        <h2>(<%=data[0].UserName%>)</h2>
-                        <div class="upperIcons">
-                            <h3><%=data[0].city%>, <%=data[0].state%></h3>
-                            <h3><%=data[0].motto%></h3>
+                        <div class="upperLocation">
+                            <div class="location">
+                                <ion-icon name="location"></ion-icon></ion-icon><h3><%=data[0].city%>, <%=data[0].state%></h3>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -49,13 +53,25 @@
 
                 <div class="rightHeader">
                     <div class="rightHeaderContainer">
-                        <%=currentUser.UserName%>
-                        <a class="edit" href="/edit/<%=data[0].UserName%>/edit"><div class="butt1"><div id="edit">Edit</br></div></div></a>
 
-                        <a class="edit" href="/newPost/<%=data[0].UserName%>/newPost"><div class="butt1"><div id="edit">Post</div></div></a>
 
-                        <a href="/gallery/<%=currentUser.UserName%>">Gallery</a>
-                        <a href="/">Logout</a>
+                        <div class="upperIcons">
+                            <div class="iconPair">
+                                <a class="edit" href="/newPost/<%=data[0].UserName%>/newPost"><ion-icon name="pencil"><br></ion-icon><div class="butt1"><div id="edit">Post</div></div></a>
+                            </div>
+                            <div class="iconPair">
+                                <a href="/gallery/<%=currentUser.UserName%>"><ion-icon name="images"></ion-icon><br>Gallery</a>
+                            </div>
+                            <div class="iconPair">
+                                <a href="/"><ion-icon name="exit"></ion-icon><br>Logout</a>
+                            </div>
+
+
+                        </div>
+                        <div class="motto">
+                                <h3><%=data[0].motto%></h3>
+                        </div>
+
 
                     </div>
                 </div>
@@ -86,11 +102,11 @@
                             <div class="linksDiv">
                                 <div class="links"><a href="/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>" ><ion-icon name="person"></ion-icon><b>Profile</b></a></div>
 
-                                <a href="#"><div class="links"><ion-icon name="navigate"></ion-icon><b>Saved Routes</b></div></a>
+                                <a href="https://www.google.com/maps/d/edit?mid=188AKtKofEFlJRHrRl4--eV9gn1zaO1jK&ll=13.465794749879045%2C144.71122489999996&z=15"><div class="links"><ion-icon name="navigate"></ion-icon><b>Saved Routes</b></div></a>
 
                                 <a href="#"><div class="links"><ion-icon name="hammer"></ion-icon><b>Best Shops</b></div></a>
 
-                                <a href="#"><div class="links"><ion-icon name="pricetag"></ion-icon><b>For Sale</b></div></a>
+                                <a href="https://www.cycletrader.com/"><div class="links"><ion-icon name="pricetag"></ion-icon><b>For Sale</b></div></a>
 
                                 <a href="https://www.facebook.com/groups/231780711792541"><div class="links"><ion-icon name="logo-facebook"></ion-icon><b>Cyclepaths Facebook</b></div></a>
 
@@ -115,7 +131,7 @@
                 <div class="gallery">
                     <iframe src="https://www.google.com/maps/d/embed?mid=188AKtKofEFlJRHrRl4--eV9gn1zaO1jK&ehbc=2E312F" width="640" height="480"></iframe>
                     <%for(let val of allPhotos){%>
-                         <div class="box" onclick="toGallery()">
+                        <div class="box" onclick="toGallery()">
                             <div class="postDiv">
                                 <div class="middleImgContainer">
                                     <img class="imageMiddle" src="data:image/<%=val.img.contentType%>;base64,<%=val.img.data.toString('base64')%>" alt="">
@@ -144,20 +160,14 @@
                             <h1>Post</h1>
                             <%for(let val of post){%>
 
-                                <% if(currentUser.UserName != val.UserName ){%>
                                     <article class="postBox" onclick="window.location.href='/userProfile/<%=val.UserName%>/<%=currentUser.UserName%>';">
-                                    <%}else if(currentUser.UserName === val.UserName ){%>
-                                    <article class="postBox" onclick="edit('<%=val.id%>')">
-                                    <%}%>
-
-
                                     <div class="sidePost">
                                         <h3><%=val.subject%> by <%=val.UserName%></h3>
                                         <div class="sidePostPic" style= "background-image:url(<%=val.img%>)" id="edit">Post
                                             <p><%=val.content%></p>
                                         </div>
                                     </div>
-                                    
+
                                 </article>
                             <%}%>
                         </article>

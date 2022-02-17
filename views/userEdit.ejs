@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <title>Edit Page</title>
     </head>
-    <body>
+    <body id="bod">
         <div class="main">
             <div class="mainEffect">
 
@@ -35,7 +35,7 @@
                 <div class="fields" > <input type="text" value="<%=currentUser.state%>" name="state"/> State: <br/> </div>
             </div>
             <div class="fields" >
-                <textarea rows="6" cols="60" type="text" placeholder="<%=currentUser.motto%>" name="motto"></textarea> Motto: <br/>
+                <textarea class="fields motto" rows="6" cols="60" type="text" placeholder="<%=currentUser.motto%>" name="motto"></textarea> Motto: <br/>
             </div>
 
                 <input class="imageField" type="text" value="<%=currentUser.profilePicture%>" name="profilePicture"><br/>
@@ -45,11 +45,48 @@
 
             <input class='butt' id=subEdit type="submit" value="Edit Profile">
             <button class='butt' type="button" name="button" onclick="window.location.href='/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>';">Back To Profile</button>
+            <input class='butt'  TYPE="BUTTON" VALUE="DELETE PROFILE" onclick = confirmDelete() ;>
         </form>
+
     </div>
 </div>
 </div>
 </div>
+<div id="myModal" class="modal">
+
+
+    <span class="close">&times;</span>
+    <div id="modalUser" class="modal-content">
+        <div class="modalButton">
+            <p>Confirm You want to delete this account</p>
+            <form action="/userDelete/<%= currentUser.id %>?_method=DELETE" method="POST">
+                <input class='butt' TYPE="submit" VALUE="DELETE" >
+            </form>
+        </div>
+
+    </div>
+
 </div>
+<script>
+const modal = document.getElementById("myModal");
+const modalImg = document.getElementById("img01");
+const modalUser = document.getElementById("modalUser");
+const modalNonUser = document.getElementById("modalNonUser");
+const image = document.getElementById('bod')
+const  userName = '<%= currentUser.UserName %>'
+
+function confirmDelete() {
+  modal.style.display = "block";
+  image.style.backgroundColor = 'red';
+   // modalImg.src = this.src;
+}
+
+const span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+  modal.style.display = "none";
+  image.style.backgroundColor = 'rgb(40, 40, 40)';
+}
+
+</script>
     </body>
 </html>

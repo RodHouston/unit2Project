@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" href="/css/usersPost.css">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <header>
+            <img class="cpIcons"  src="/photos/cpIcon.png" alt="">
+
+            <h1>Posted  by <%=usersPost.UserName%></h1>
+
+            <img class="cpIcons hide"  src="/photos/cpIcon.png" alt="">
+        </header>
+        <div class="main">
+            <div class="mainEffect">
+                <div class="container">
+                    <div class="holder">
+                        <div class="post">
+                            <div class="postHeader">
+                                <div class="userPhoto" style="background-image: url('<%=user.profilePicture%>')">
+                                </div>
+                                <h2><%=usersPost.subject%> by <%=usersPost.UserName%></h2>
+                            </div>
+                            <div class="content">
+                                <p><%=usersPost.content%></p>
+                            </div>
+
+                            <div class="postPic" style= "background-image:url(<%=usersPost.img%>)" onclick="zoom()">
+
+                            </div>
+                        </div>
+
+
+                    <% if(currentUser.UserName == usersPost.UserName ){%>
+                        <input class='butt'  TYPE="BUTTON" VALUE="EDIT" onclick = edit('<%=usersPost.id%>') ;>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <div id="modalUser" class="modal-content">
+                <div class="modalPic" id="modalImg" style= "background-image:url(<%=usersPost.img %>)" >
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        <script>
+            function edit(id){
+                window.location.href=`/edit/${id}/edit`;
+
+            }
+            const modal = document.getElementById("myModal");
+            const modalImg = document.getElementById("modalImg");
+            const modalUser = document.getElementById("modalUser");
+            const modalNonUser = document.getElementById("modalNonUser");
+            const  userName = '<%= currentUser.UserName %>'
+
+
+            function zoom() {
+              modal.style.display = "block";
+               // modalImg.src = this.src;
+            }
+
+
+            const span = document.getElementsByClassName("close")[0];
+                span.onclick = function() {
+                modal.style.display = "none";
+                image.style.backgroundColor = 'rgb(40, 40, 40)';
+            }
+
+        </script>
+
+    </body>
+</html>

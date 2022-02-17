@@ -34,14 +34,15 @@
                     <h1><%=data[0].firstName%> <%=data[0].lastName%></h1>
                     <h3>(<%=data[0].UserName%>)</h3>
 
-                <div class="linkBox">
-                    <button class='butt' type="button" onclick="window.location.href='/gallery/<%=currentUser.UserName%>';">Photos</button>
-                    <button class='butt' type="button" name="button" onclick="window.location.href='/editUser/<%=currentUser.UserName%>';">Edit</button>
-                    <button class='butt' type="button"  onclick="window.location.href='/profile/<%=currentUser.UserName%>/<%=currentUser.UserName%>';">Home</button>
-                </div>
-                </div>
+                    <div class="linkBox">
+                        <button class='butt' type="button"  onclick="window.location.href='/profile/<%=currentUser.UserName%>/<%=currentUser.UserName%>';">Back To Wall  <ion-icon name="home"></ion-icon></button>
 
-
+                        <button class='butt' type="button" onclick="window.location.href='/userGallery/<%=data[0].UserName%>/<%=currentUser.UserName%>';">Photos  <ion-icon name="images"></ion-icon> </button>
+                        <%if(data[0].UserName == currentUser.UserName){%>
+                            <button  class='butt' type="button" name="button" onclick="window.location.href='/editUser/<%=currentUser.UserName%>';">Edit Your Info <ion-icon name="create"></ion-icon></button>
+                        <%}%>
+                    </div>
+                </div>
             </div>
 
             <div class="bodyDiv">
@@ -68,21 +69,43 @@
                     <div class="shade">
                         <article class="postContainer">
                             <% if(data[0].UserName === currentUser.UserName ){%>
-                                <h1>Your Post</h1>
+                                <div class="yourPost">
+                                    <h1>Your Post</h1>
+                                     <a class="edit" href="/newPost/<%=data[0].UserName%>/newPost">
+                                         <ion-icon name="pencil"><br></ion-icon>
+                                         Create a Post
+                                         </a>
+                                </div>
                                 <%}else if(data[0].UserName != currentUser.UserName ){%>
-
-                            <h1><%=data[0].UserName%>'s Post</h1>
+                                    <h1><%=data[0].UserName%>'s Post</h1>
                             <%}%>
                             <%for(let val of post){%>
                                 <% if(data[0].UserName === val.UserName ){%>
-                                    <article class="postBox" onclick="edit('<%=val.id%>')">
-                                        <div class="sidePost">
-                                        <h3><%=val.subject%> by <%=val.UserName%></h3>
-                                        <div class="sidePostPic" style= "background-image:url(<%=val.img%>)" id="edit">Post
-                                        <p><%=val.content%></p>
-                                        </div>
-                                    </div>
-                                </article>
+
+
+                                <div class="box" onclick="viewPost('<%=val.id%>')">
+                                   <div class="postDiv">
+                                           <div class="sidePostPic" style= "background-image:url(<%=val.img%>)" id="edit">
+                                               <div class="postText">
+                                                   <div class="sideUserPic" style= "background-image:url( <%=data[0].profilePicture%>)"></div>
+                                                  <h3><%=val.UserName%></h3> <p><%=val.content%></p>
+                                                </div>
+                                            </div>
+
+                                       <div class="clip" id='right'></div>
+                                       <div class="clip" id='left'></div>
+                                       <div class="clip" id='up'></div>
+                                       <div class="clip" id='down'></div>
+
+                                       <span id='rightClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></p></span>
+
+                                       <span id='leftClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
+
+                                       <span id='upClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
+
+                                       <span id='downClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
+                                   </div>
+                               </div>
                             <%}}%>
                         </article>
                     </div>
@@ -90,8 +113,13 @@
             </div>
         </div>
         <script>
+
         function edit(id){
             window.location.href=`/edit/${id}/edit`;
+
+        }
+        function viewPost(id){
+            window.location.href=`/usersPost/${id}/<%=currentUser.UserName%>`;
 
         }
 

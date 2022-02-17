@@ -11,8 +11,10 @@
     <body id="bod">
         <header>
             <img class="cpIcons" src="/photos/cpIcon.png" alt="">
-            <a href="/upLoadImage/<%=currentUser.UserName%>"><ion-icon name="arrow-up-circle"></ion-icon>Upload An Image</a>
-            <a href="/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>"><ion-icon name="home"></ion-icon>Home</a>
+            <a href="/upLoadImage/<%=currentUser.UserName%>"><ion-icon name="arrow-up-circle"></ion-icon>  Upload An Image</a>
+            <a href="/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>"><ion-icon name="home"></ion-icon>  Home</a>
+            <a href="/gallery/<%=currentUser.UserName%>"><ion-icon name="images"></ion-icon> Main Gallery</a>
+
             <img class="cpIcons" src="/photos/cpIcon.png" alt="">
 
 
@@ -21,7 +23,7 @@
 
 
 
-            <h1>Photo Gallery</h1>
+            <h1><%=user.UserName%>'s Photos'</h1>
 
                     <div class="upperImg">
 
@@ -30,41 +32,34 @@
 
                             <div class="gallery">
 
+                            <%for(val of allPhotos){%>
+                            <%if(user.UserName == val.UserName){%>
 
-                            <% allPhotos.forEach(function(image) {%>
 
+                            <div class="box" id='boxes'  onclick = editPhoto('<%= val.id %>')>
 
-                            <div class="box" id='boxes'  onclick = editPhoto('<%= image.id %>')>
-
-                                <img onclick = zoom() class='galleryPic' id="try" src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>">
+                                <img onclick = zoom() class='galleryPic' id="try" src="data:image/<%=val.img.contentType%>;base64,<%=val.img.data.toString('base64')%>">
 
                                 <div class="clip" id='right' ></div>
                                 <div class="clip" id='left'></div>
                                 <div class="clip" id='up'></div>
                                 <div class="clip" id='down'></div>
-                                <span id='rightClip' class="clipper">Click to Zoom
-                                    <%= image.UserName %><br>
-                                    <%= image.desc %>
+                                <span id='rightClip' class="clipper">Click to Zoom<br><br>
+                                    <%= val.desc%>
+                                </span>
+                                <span id='leftClip' class="clipper">Click to Zoom<br><br>
+                                    <%= val.desc%>
+                                </span>
 
-                                    </span>
-                                <span id='leftClip' class="clipper">Click to Zoom
-                                    <%= image.UserName %><br>
-                                    <%= image.desc %>
+                                <span id='upClip' class="clipper">Click to Zoom<br><br>
+                                    <%= val.desc%>
+                                </span>
 
-
-                                    </span>
-                                <span id='upClip' class="clipper">Click to Zoom
-                                    <%= image.UserName %><br>
-                                    <%= image.desc %>
-
-                                    </span>
-                                <span id='downClip' class="clipper">Click to Zoom
-                                    <%= image.UserName %><br>
-                                    <%= image.desc %>
-                                    </span>
+                                <span id='downClip' class="clipper">Click to Zoom<br><br>
+                                    <%= val.desc%>
+                                </span>
                             </div>
-                            <%
-                        })%>
+                            <%}}%>
 
                         <div id="myModal" class="modal">
 

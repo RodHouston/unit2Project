@@ -1,65 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body id='bod'>
-    <h1>Upload Image</h1>
-    <!-- <form action="/uploadphoto" enctype="multipart/form-data" method="POST">
-        <input type="file" name="myImage" accept="image/*">
-		<input type="text" name="owner" >
-        <input type="submit" value="Upload Photo">
-    </form> -->
+    <head>
+        <link rel="stylesheet" href="/css/imageUpload.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body id='bod'>
+        <h1>Upload Image</h1>
+        <div class="main">
+            <div class="mainEffect">
+                <div class="container">
+                    <div class="holder">
+                        <div class="picture">
+                            <img id="img" src="" alt="">
+                        </div>
+    	                <form class='form1' action="/uploadphoto" method="POST" enctype="multipart/form-data">
+                            <input hidden type="text" id="nameVal" value="<%=currentUser.UserName%>" name="UserName" required></input>
+                            <label for="desc">Image Description</label> <br>
+                                <textarea id="desc" name="desc" value="" rows="4" placeholder="Description" required></textarea>
+                            <div>
+                                <label for="myImage">Upload Image</label>
+                                <input  type="file" id="postImg" name="myImage" value="" onchange="updateValue()" required></input>
+                            </div>
+                            <div>
+                                <button class="input butt" id=subPost type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	<form action="/uploadphoto" method="POST" enctype="multipart/form-data">
-            <div>
-                <label for="UserName">UserName = <%=currentUser.UserName%></label>
-                <input hidden type="text" id="nameVal"
-                value="<%=currentUser.UserName%>"
-                        name="UserName" required>
-            </div>
-            <label for="subject">Choose Subject:</label>
 
-                <select class="input" id="post" name="subject" onchange='showInput(event)' size="1">
-                    <option  value="Post">Post</option>
-                    <option  value="Ride">Ride Alert</option>
-                </select><br><br>
-			<div>
-                <label for="desc">Image Description</label>
-                <textarea id="desc" name="desc" value="" rows="2"
-                          placeholder="Description" required>
-                </textarea>
-            </div>
 
-            <div>
-                <label for="myImage">Upload Image</label>
-                <input type="file" id="postImg"
-                       name="myImage" value="" required>
-            </div>
-            <div>
-                <button class="input" id=subPost type="submit">Submit</button>
-            </div>
-        </form>
+
         <script>
-            function showInput(e) {
-                if(document.getElementById('post').value == "Ride"){
-                    document.getElementById('postImg').style.display = 'flex';
-                }else
-                if(document.getElementById('post').value == "Post"){
-                    document.getElementById('bod').style.backgroundColor = 'red';
-                }
-            }
-            function checkName(e) {
-                if(document.getElementById('nameVal').value == ""){
-                    document.getElementById('subPost').style.display = 'block';
-                }else
-                if(document.getElementById('nameVal').value != ""){
-                    document.getElementById('bod').style.backgroundColor = 'red';
-                    document.getElementById('subPost').style.display = 'none';
-                }
-            }
+        function updateValue() {
+                let oFReader = new FileReader();
+                oFReader.readAsDataURL(document.getElementById("postImg").files[0]);
+
+                oFReader.onload = function (oFREvent) {
+                    document.getElementById("img").src = oFREvent.target.result;
+                };
+            };
+
+
+$("#imgInp").change(function(){
+    readURL(this);
+});
         </script>
-</body>
+    </body>
 </html>

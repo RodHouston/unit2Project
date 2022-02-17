@@ -4,12 +4,11 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="/css/newUser.css">
         <meta charset="utf-8">
-        <title>Edit Page</title>
+        <title>New User</title>
     </head>
     <body>
         <div class="main">
             <div class="mainEffect">
-
 
                 <h1>New User</h1>
 
@@ -20,35 +19,40 @@
                             <form class="form" action="/newUser" method="POST">
 
                                 <div class="pair">
-                                    <div class="fields" > <input type="text"  name="UserName"/>UserName:<br/> </div>
-                                    <div class="fields" > <input type="text"   name="Password"/>Password:<br/> </div>
+                                    <div class="fields" > UserName:<br/><input type="text"  name="UserName" required/> </div>
+                                    <div class="fields" > Password:<br/><input type="text"   name="Password" required/></div>
                                 </div>
                                 <div class="pair">
-                                    <div class="fields" > <input type="text"  name="firstName"/> First Name:<br/> </div>
+                                    <div class="fields" > First Name:<br/><input type="text"  name="firstName" required/> </div>
 
-                                    <div class="fields" > <input type="text" name="lastName"/>Last Name:<br/> </div>
+                                    <div class="fields" > Last Name:<br/> <input type="text" name="lastName" required/> </div>
                                 </div>
                                 <div class="pair">
-                                <!-- Email:<br/> <input type="text" name="email"/><br/> -->
-                                    <div class="fields" > <input type="text"  name="city"/> City:<br/> </div>
-                                    <div class="fields" > <input type="text"  name="state"/> State: <br/> </div>
+                                    <div class="fields email" >Email:<br/><input type="text" name="email" required/></div>
                                 </div>
-                                <div class="fields" >
-                                    <textarea rows="6" cols="60" type="text" placeholder="Tell Us about yourself" name="motto"></textarea> Motto: <br/>
-                                </div>
+                                <div class="pair">
 
+                                    <div class="fields" > City:<br/><input type="text"  name="city" required/> </div>
+                                    <div class="fields" > State: <br/><input type="text"  name="state" required/>  </div>
+                                </div>
+                                <div class="fields motto" >
+                                    Motto: <br/><textarea rows="6" cols="60" type="text" placeholder="Tell Us about yourself" name="motto"></textarea>
+                                </div>
+                                    Profile Picture:<br/>
+                                    *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
                                     <input class="imageField" type="text" value="https://i.imgur.com/lFTxgj0.png" name="profilePicture"><br/>
-                                    Profile Picture: *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
+                                    Cover Photo:<br/>
+                                    *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
                                     <input class="imageField" type="text" value="https://i.imgur.com/5NKkE5h.jpg" name="coverPhoto"><br/>
-                                    Profile Picture: *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
 
-                                <input class='butt' id=subEdit type="submit" value="Edit Profile">
+
+                                <input class='butt' id=subEdit type="submit" value="Create User">
                                 <button class='butt' type="button" name="button"onclick="window.location.href='/';">Back to Login</button>
                             </form>
-    </div>
-</div>
-</div>
-</div>
-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

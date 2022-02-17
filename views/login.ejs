@@ -12,7 +12,7 @@
             <div class="mainEffect">
 
 
-                <h1>Login</h1>
+                <h1>LOGIN</h1>
 
                 <div class="container">
                     <div class="holder">
@@ -20,11 +20,11 @@
 
                         </div>
                         <div class="formHolder">
-                            <form name="form1">
-                                <p> <input class='input' TYPE="TEXT"  NAME="UserName"><br/><b>UserName:</b></p>
-                                <p> <input class='input' TYPE="TEXT"  NAME="firstName"><br/><b>First Name:</b></p>
-                                <p> <input class='input' TYPE="TEXT"  NAME="lastName"><br/><b>Last Name: </b></p>
-                                <p><input class='butt' TYPE="BUTTON" VALUE="LOGIN" onClick="login();"></p>
+                            <form name="form1" onsubmit= "return login(this);">
+                                <p> <b>UserName:</b></br><input class='input' type="TEXT"  name="UserName" required></p>
+                                <p> <b>Password:</b></br><input class='input' type="TEXT"  name="password" required></p>
+
+                                <p><input class='butt' TYPE="submit" VALUE="LOGIN" ></p>
                             </form>
 
                                 <button class='butt' id='newUserButt' type="button" name="button"onclick="window.location.href='/newUser';">New User</button>
@@ -37,10 +37,15 @@
 
 
 
+
         <script>
-            function login() {
-              window.location.href=`/profile/${document.form1.UserName.value}/${document.form1.UserName.value}`
+            function login(form) {
+             form.action= `/profile/${document.form1.UserName.value}/${document.form1.UserName.value}`
             }
+            if(`<%=message%>` == 'error'){
+  window.alert("Please enter a valid UserName and Password");
+}
+
         </script>
     </body>
 </html>

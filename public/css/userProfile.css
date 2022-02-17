@@ -19,6 +19,16 @@ header{
     justify-content: center;
     align-items:center;
 }
+.edit{
+    margin-left:200px;
+    font-size: 20px;
+    text-decoration: none;
+    color: rgba(10, 180, 180, 1);
+}
+.edit:hover{
+    transform: scale(1.1);
+
+}
 .cpIcons{
     width: 60px;
     height: 60px;
@@ -47,6 +57,10 @@ header{
     width: 100%;
     height: 200px;
     border: 2px solid rgba(255, 255, 255, .5);
+}
+.yourPost{
+    display: flex;
+    flex-direction: row;
 }
 
 .photo{
@@ -122,17 +136,18 @@ header{
     flex-wrap: nowrap;
     width: 100%;
     height: 50px;
-
-    margin: auto;
-    justify-content:  center;
+    margin: 0 auto;
+    justify-content:  right;
     align-items: center;
     margin-bottom: 1vh;
-    margin-top: 8vh;
+    margin-top: 12vh;
     border-radius: 10px;
+    /* background-color: red; */
 }
 .butt{
-    border: 1px solid rgba(10, 180, 180, 1);
-    background: rgba(20, 20, 20, .6);
+    border: none;
+    border-bottom: 1px solid rgba(10, 180, 180, 1);
+    background: rgba(20, 20, 20, 0);
     font-size: 15px;
     color: white;
     margin:10px 2%;
@@ -178,14 +193,30 @@ header{
 
 .carouselBox{
     height: 350px;
-    width: auto;
-    overflow-x: hidden;
+    width: 325px;
+    overflow-x: scroll;
     white-space: nowrap;
     text-align: center;
     padding-bottom: 10px ;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    flex-direction: column;
+}
+*::-webkit-scrollbar{
+width: auto;
+}
+*::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
+    background:grey;
+}
+*::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background:rgb(0, 91, 91);
+
+}
+*::-webkit-scrollbar-thumb:hover{
+    background:rgb(0, 213, 181);
 }
 
 .horizontal-card{
@@ -314,6 +345,7 @@ header{
     width: 100%;
     opacity: 1;
     /* background-color: orange; */
+    background-image: linear-gradient(to bottom right, rgb(0, 217, 231),rgb(5, 5, 5));
 }
 .sidePost{
     height: 100%;
@@ -322,15 +354,173 @@ header{
 
 }
 .sidePostPic{
-    height: 90%;
+    height: 100%;
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-image: linear-gradient(rgb(0, 217, 231),rgb(25, 52, 45));
 
     /* background-color: green; */
 
 }
+
+
+
+.gallery{
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    width: 50%;
+    background-color: grey;
+    overflow: auto;
+    padding: 15px;
+}
+
+
+.box{
+    position: relative;
+    height: 350px;
+    width:90% ;
+    background: transparent;
+    border: 5px solid rgba(0,0,0,.5);
+    /* box-shadow: 6px 6px 0 #888; */
+    color: red;
+    text-shadow: 5px 5px 5px rgba(0,0,0,1);
+    cursor: pointer;
+
+    outline: transparent;
+    padding: 8px 16px;
+    /* transition: box-shadow 0.15s ease; */
+    margin: 10px auto;
+    overflow: hidden;
+}
+.sideUserPic{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.postText{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px;
+}
+
+.imageMiddle{
+    display: flex;
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+.clip {
+    display: flex;
+    flex-shrink: 1;
+    height: 100%;
+    width: 100%;
+    padding: 8px 16px;
+    position: absolute;
+    top:-5px;
+    left: -5px;
+    opacity: 0;
+    z-index: 1;
+}
+#up{
+    background: orange;
+    /* opacity:1; */
+    clip-path: polygon(0 0, 100% 0, 50% 50%, 50% 50%);
+}
+#right{
+    background: yellow;
+    /* opacity:1; */
+    clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+}
+#down{
+    background: blue;
+    /* opacity:1; */
+    clip-path: polygon(0 100%, 100% 100%, 50% 50%);
+}
+#left{
+    background: red;
+    /* opacity: 1; */
+    clip-path: polygon(0 0, 0 100%, 50% 50%);
+}
+
+.clipper {
+    display: flex;
+    flex-shrink: 1;
+    height: 100%;
+    width: 100%;
+    box-shadow: 6px 6px 0 #888;
+    color: white;
+    cursor: pointer;
+    /* font-size: 5rem; */
+    font-weight: bold;
+    outline: transparent;
+    /* padding: 8px 16px; */
+    /* transition: box-shadow 0.15s ease; */
+    position: absolute;
+    top:0;
+    left: 0;
+    opacity: 0;
+    transition: clip-path 0.25s ease;
+    background-color: rgba(0,0,0,.5);
+    backdrop-filter: blur(3px);
+    text-align: center;
+
+}
+#rightClip{
+    /* background: blue; */
+    border: 5px solid blue;
+    clip-path: inset(0 0 0 100%);
+
+}
+#downClip{
+    /* background: red; */
+    border: 5px solid red;
+    clip-path: inset(100% 0 0 0);
+
+}
+#upClip{
+    /* background: yellow; */
+    border: 5px solid yellow;
+    clip-path: inset(0 0 100% 0);
+
+}
+#leftClip{
+    /* background: green; */
+    border: 5px solid green;
+    clip-path: inset(0 100% 0 0);
+}
+#right:hover ~ #rightClip,
+#left:hover ~ #leftClip,
+#up:hover ~ #upClip,
+#down:hover ~ #downClip {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+}
+#right:hover,
+#left:hover,
+#up:hover,
+#down:hover{
+    /* opacity: 1; */
+    z-index: 2;
+    clip-path: inset(0 0 0 0);
+}
+.emptyClipBox{
+    width: 70%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    backdrop-filter: blur(3px);
+}
+.sideClipBox{
+    width: 30%;
+    height: 100%;
+    background-color: black;
+}
+
 
 
 
@@ -361,8 +551,11 @@ header{
   }
   .carouselBox{
       height: 200px;
+      width: auto;
       flex-wrap: nowrap;
+      flex-direction: row;
       margin: 5px;
+      overflow: hidden;
   }
   .leftScroll,
   .rightScroll {
@@ -437,7 +630,8 @@ header{
   }
 .linkBox{
     margin-top: 20px;
-    background-color: rgba(255, 255, 255, .5);
+    /* background-color: rgba(255, 255, 255, .5); */
+    justify-content:  center;
 }
 
 

@@ -16,7 +16,7 @@ const UserSeed = require('./models/userSeed.js')
 
 const PostModel = require('./models/postModel.js')
 const PostSeed = require('./models/postSeed.js')
-//
+
 
 require('dotenv').config()
 //___________________
@@ -56,6 +56,19 @@ app.use(express.json());// returns middleware that only parses JSON - may or may
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
 
+const session = require('express-session');
+const flash = require('connect-flash');
+
+
+
+app.use(session({
+  secret: 'secret key',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(flash());
+
 //___________________
 // Routes
 //___________________
@@ -85,7 +98,6 @@ const path = require('path');
  const storage = multer.diskStorage({
      destination: function (req, file, cb) {
        cb(null, "./public/photos/uploads");
-
      },
      filename: function (req, file, cb) {
        cb(null, file.fieldname + '-' + Date.now())
@@ -93,13 +105,15 @@ const path = require('path');
    })
    const upload = multer({ storage: storage })
 
-
-
    app.get("/upLoadImage/:currentUser",(req,res)=>{
        UserModel.findOne({UserName: req.params.currentUser}, (err, currentUser) => {
+           if(err){
+                console.log(err);
+            }else{
            res.render("imageUpload.ejs", {currentUser:currentUser});
-       })
- })
+       }
+   })
+})
 
 
  app.post("/uploadphoto",upload.single('myImage'),(req,res)=>{
@@ -119,25 +133,21 @@ const path = require('path');
         if(err){
              console.log(err);
          }else{
-         console.log(`this is path ${final_img.path}`);
+         // console.log(`this is path ${final_img.path}`);
          let UserName = final_img.UserName
 
          PostModel.find({}, (err, allPost) => {
              Image.find({}, (err, allPhotos) => {
                  UserModel.findOne({UserName: UserName}, (err, currentUser) => {
                      UserModel.find({}, (err, allUsers) => {
-
                             res.render('gallery.ejs', {post:allPost, allUsers:allUsers,
                             currentUser: currentUser, allPhotos:allPhotos});
                         })
-                    }).sort({"_id": -1})
-                })
+                    })
+                }).sort({"_id": -1})
             })
         }
-             // res.contentType(final_img.contentType);
-             // res.send(final_img.image);
     })
-
 })
 
  // //======================================================
@@ -150,32 +160,28 @@ const path = require('path');
 
 //=============Creates new user send here from login page(/)
 app.post('/newUser', (req, res) => {
-
     UserModel.create(req.body), (err, createdUser) => {
-
         res.send(req.body);
     }
-    res.redirect('/');
+
+    res.redirect('/good');
 })
-app.get('/newUser' , (req, res) => {
+
+app.get('/newUser', (req, res) => {
     res.render('newUser.ejs');
 });
-
 
 //===========================================================================
 //=============Login Page.======================================
 app.get('/' , (req, res) => {
-    res.render('login.ejs');
+        let message = "Welcome"
+    res.render('login.ejs',{message: message});
 });
-app.post('/login',(req, res) => {
-    const user = UserModel.findOne({UserName: req.body.UserName});
-    !user && res.status(404).json('user not found');
-    const validPassword = compare(req.body.Password, user.Password)
-
-
+app.get('/:message',(req, res) => {
+    // work on validation compare userName and password to DB
+        let message = req.params.message
+    res.render('login.ejs', {message: message})
 })
-
-
 
 //===========================================================================
 //============== loads profile/wall page with info found from first name key
@@ -183,14 +189,17 @@ app.get('/profile/:UserName/:CurrentUser' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
         Image.find({}, (err, allPhotos) => {
             UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
+                if( currentUser== null){
+                    res.redirect('/error');
+                } else {
                 UserModel.find({}, (err, allUsers) => {
                     UserModel.find({UserName: req.params.UserName}, (err, user) => {
                         res.render('profile.ejs', {data: user, post:allPost, allUsers:allUsers,
                         currentUser: currentUser, allPhotos:allPhotos});
                     })
-                })
+                })}
             })
-        })
+        }).sort({"_id": -1})
     }).sort({"_id": -1})
 });
 //===========================================================================
@@ -209,7 +218,16 @@ app.get('/userProfile/:UserName/:CurrentUser' , (req, res) => {
         })
     }).sort({"_id": -1})
 });
-
+app.get('/usersPost/:id/:CurrentUser', (req, res) => {
+    PostModel.findOne({_id: req.params.id}, (err, usersPost) => {
+        let User = usersPost.UserName
+        UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
+            UserModel.findOne({UserName: User}, (err, user) => {
+            res.render('usersPost.ejs',{usersPost: usersPost, currentUser: currentUser, user: user})
+            })
+        })
+    })
+})
 
 
 //===========================================================================
@@ -225,9 +243,8 @@ app.get('/gallery/:UserName' , (req, res) => {
                     })
                 })
             })
-        })
-    }).sort({"_id": -1})
-
+        }).sort({"_id": -1})
+    })
 });
 app.get('/galleryEdit/:id/:UserName', (req, res) => {
     Image.findOne({_id: req.params.id}, (err, userPhoto) => {
@@ -242,19 +259,31 @@ app.get('/galleryEdit/:id/:UserName', (req, res) => {
 })
 
 app.delete('/photoDelete/:id/:UserName',  (req, res)  => {
-    Image.findOneAndDelete({
-            _id: req.params.id
-        }, (err, foundPhoto) => {
-            PostModel.find({UserName: req.params.UserName}, (err, userPost) => {
-                Image.find({}, (err, photos) => {
+    Image.findOneAndDelete({_id: req.params.id}, (err, foundPhoto) => {
+        PostModel.find({UserName: req.params.UserName}, (err, userPost) => {
+            Image.find({}, (err, photos) => {
                 UserModel.find({}, (err, allUsers) => {
                     UserModel.findOne({UserName: req.params.UserName}, (err, currentUser) => {
-                         res.render('gallery.ejs', {currentUser: currentUser, post:userPost, allUsers:allUsers, allPhotos: photos});
-                    })
+                         res.render('userGallery.ejs', {currentUser: currentUser, user:currentUser, post:userPost, allUsers:allUsers, allPhotos: photos});
                     })
                 })
             })
+        })
     });
+});
+app.get('/userGallery/:UserName/:currentUser' , (req, res) => {
+    PostModel.find({}, (err, allPost) => {
+        Image.find({}, (err, allPhotos) => {
+            UserModel.findOne({UserName: req.params.currentUser}, (err, currentUser) => {
+                UserModel.find({}, (err, allUsers) => {
+                    UserModel.findOne({UserName: req.params.UserName}, (err, user) => {
+                        res.render('userGallery.ejs', {user: user, post:allPost, allUsers:allUsers,
+                        currentUser: currentUser, allPhotos:allPhotos});
+                    })
+                })
+            })
+        }).sort({"_id": -1})
+    })
 });
 
 
@@ -265,9 +294,8 @@ app.get('/edit/:id/edit', (req, res) => {
 
     PostModel.findOne({_id: req.params.id}, (err, userPost) => {
         // console.log(userPost.UserName);
-
         let UserName = userPost.UserName;
-        console.log(`this is name ${UserName}`);
+        // console.log(`this is name ${UserName}`);
 
         UserModel.find({UserName: UserName}, (err, user) => {
             // console.log('we here');
@@ -284,27 +312,25 @@ app.put('/edit/:id', (req, res) => {
         let UserName = userPost.UserName;
         // console.log(`this is name ${UserName}`);
 
-    Image.find({}, (err, allPhotos) => {
-    PostModel.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, (err, post) => {
-        PostModel.find({UserName: UserName}, (err, usersPost) => {
-            UserModel.find({}, (err, allUsers) => {
-                UserModel.find({UserName: UserName}, (err, currentUser) => {
-                    res.redirect(`/profile/${UserName}/${UserName}`)
-                //      {data: currentUser, currentUser: currentUser, post:usersPost, allUsers:allUsers, allPhotos, allPhotos});
-                //
-            })
+        Image.find({}, (err, allPhotos) => {
+        PostModel.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, (err, post) => {
+            PostModel.find({UserName: UserName}, (err, usersPost) => {
+                UserModel.find({}, (err, allUsers) => {
+                    UserModel.find({UserName: UserName}, (err, currentUser) => {
+                        res.redirect(`/profile/${UserName}/${UserName}`)
+                        })
+                    })
                 })
-            })
-        }).sort({"_id": -1})
-    })
+            }).sort({"_id": -1})
+        })
     })
 });
 //===========================================================================
 //==== Edit User Info/DELETE profile. =======
 app.get('/editUser/:userName', (req, res) => {
     UserModel.findOne({UserName: req.params.userName}, (err, user) => {
-        console.log('we here');
-        console.log(user);
+        // console.log('we here');
+        // console.log(user);
         res.render('userEdit.ejs', {currentUser: user});
     })
 });
@@ -313,11 +339,21 @@ app.put('/editUser/:id', (req, res) => {
     // console.log(res);
     UserModel.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, (err, user) => {
         let UserName = user.UserName;
-                        res.redirect(`/userProfile/${UserName}/${UserName}`)
-
-            })
-        
+        res.redirect(`/userProfile/${UserName}/${UserName}`)
     })
+})
+
+app.delete('/userDelete/:id', (req, res) => {
+    // console.log(res);
+    UserModel.findOneAndDelete({_id: req.params.id},  (err, user) => {
+        let UserName = user.UserName;
+        PostModel.deleteMany({UserName: UserName}, (err, usersPost) => {
+            Image.deleteMany({UserName: UserName}, (err, usersPost) => {
+                    res.redirect(`/`)
+            })
+        })
+    })
+})
 //===========================================================================
 //==== Creates new post. =======
 app.get('/newPost/:UserName/newPost', (req, res) => {
@@ -369,13 +405,6 @@ PostModel.count({} , (err , data)=> {
    if ( err ) console.log( err.message );
     console.log ( `There are ${data} post in this database` );
 });
-
-
-
-
-
-
-
 
 //___________________
 //Listener
