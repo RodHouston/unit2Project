@@ -8,52 +8,30 @@
     </head>
     <body id='bod'>
         <header>
-
+            <img class="cpIcons" src="/photos/cpIcon.png" alt="">
+            <h1> <%=data[0].UserName%></h1>
+            <img class="cpIcons" src="/photos/cpIcon.png" alt="">
         </header>
         <div class="main">
-                <div class="topContainer">
-                    <div class="userInfo">
-                        <div class="userImg" style="background-image: url('<%=data[0].img%>')">
-
-                        </div>
-                        <h3><%=data[0].UserName%> <%=data[0].lastName%></h3>
-                    </div>
-
-                    <form class="form" action="/newPost/<%=data[0].UserName%>" method="POST">
-
-                        <br/><input id ="nameVal" type="text" name="UserName" onchange='checkName(event)' value="<%=data[0].UserName%>"/><br/>
-
-                        <!-- Subject:<br/> <input type="text" name="subject"/><br/> -->
-                        <label for="subject">Choose Content:</label>
-
-                            <select class="input" id="post" name="subject" onchange='showInput(event)' size="1">
-                                <option  value="Post">Text Only</option>
-                                <option  value="Pic">Post with Pic</option>
-                            </select><br><br>
-
-
-                            Content:<br/> <textarea class="input" id="inputBox" type="text" name="content" /></textarea/<br/>
-                            <span id="prompt">Please paste url. ex:https://i.imgur.com/Q8vh9AO.jpg<br/></span>
-                            <input class="input" id="postImg" type="text" name="img"/><br/>
-
-                        <input class="input" id=subPost type="submit" value="Create Post">
-                    </form>
-
-
-
-
-                </div>
-
-
-            <h1>Post a post</h1>
-
-
-
-
-
-
-
+            <h1>Create a post</h1>
+            <div class="topContainer">
+                
+                <form class="form" action="/newPost/<%=data[0].UserName%>" method="POST">
+                    <br/><input id ="nameVal" type="text" name="UserName" onchange='checkName(event)' value="<%=data[0].UserName%>"/><br/>
+                    <!-- Subject:<br/> <input type="text" name="subject"/><br/> -->
+                    <label for="subject">Choose Content:</label>
+                    <select class="input" id="post" name="subject" onchange='showInput(event)' size="1">
+                        <option  value="Post">Text Only</option>
+                        <option  value="Pic">Post with Pic</option>
+                    </select><br><br>
+                    Content:<br/> <textarea class="input" id="inputBox" type="text" name="content" /></textarea/<br/>
+                    <span id="prompt">Please paste url. ex:https://i.imgur.com/Q8vh9AO.jpg<br/></span>
+                    <input class="input" id="postImg" type="text" name="img"/><br/>
+                    <input class="input" id=subPost type="submit" value="Create Post">
+                </form>
+            </div>
         </div>
+
         <script>
             function showInput(e) {
                 if(document.getElementById('post').value == "Pic"){
@@ -75,6 +53,5 @@
                 }
             }
         </script>
-
     </body>
 </html>

@@ -4,9 +4,12 @@
 const express = require('express'),
 bodyParser = require("body-parser"),
 fs = require("fs"),
-multer = require("multer")
+multer = require("multer");
 
-;
+// const imgur = require('imgur')
+// const fileUpload = require('express-fileupload')
+
+
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
@@ -16,6 +19,8 @@ const UserSeed = require('./models/userSeed.js')
 
 const PostModel = require('./models/postModel.js')
 const PostSeed = require('./models/postSeed.js')
+
+const PhotoModel = require('./models/photoModel.js')
 
 
 require('dotenv').config()
@@ -55,19 +60,9 @@ app.use(express.json());// returns middleware that only parses JSON - may or may
 //use method override
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 
-
-const session = require('express-session');
-const flash = require('connect-flash');
-
-
-
-app.use(session({
-  secret: 'secret key',
-  resave: false,
-  saveUninitialized: false
-}));
-
-app.use(flash());
+// app.use(fileUpload())
+// app.set('viw engine', 'ejs');
+// app.set('views', 'views')
 
 //___________________
 // Routes
@@ -92,71 +87,137 @@ app.use(flash());
  app.use(bodyParser.urlencoded({ extended: false }))
  app.use(bodyParser.json())
  app.use(express.static(__dirname));
-const path = require('path');
+ const path = require('path');
  const Image = require('./models/imageModel.js')
-
- const storage = multer.diskStorage({
-     destination: function (req, file, cb) {
-       cb(null, "./public/photos/uploads");
-     },
-     filename: function (req, file, cb) {
-       cb(null, file.fieldname + '-' + Date.now())
-     }
-   })
-   const upload = multer({ storage: storage })
-
-   app.get("/upLoadImage/:currentUser",(req,res)=>{
-       UserModel.findOne({UserName: req.params.currentUser}, (err, currentUser) => {
-           if(err){
-                console.log(err);
-            }else{
-           res.render("imageUpload.ejs", {currentUser:currentUser});
-       }
-   })
-})
+//
+ // const storage = multer.diskStorage({
+ //     destination: function (req, file, cb) {
+ //       cb(null, "./public/photos/uploads");
+ //     },
+ //     filename: function (req, file, cb) {
+ //       cb(null, file.fieldname + '-' + Date.now())
+ //     }
+ //   })
+ //   const upload = multer({ storage: storage, limits: {  fileSize: 6000000, files: 1 }});
 
 
- app.post("/uploadphoto",upload.single('myImage'),(req,res)=>{
-     const img = fs.readFileSync(req.file.path);
-     const encode_img = img.toString('base64');
-     const final_img = {
-         UserName: req.body.UserName,
-         subject: req.body.subject,
-         desc: req.body.desc,
-         img: {
-         data: fs.readFileSync(path.join(__dirname + '/public/photos/uploads/' + req.file.filename)),
-         contentType: 'image/png'
-        }
-    }
-
-    Image.create(final_img, (err,result)=>{
-        if(err){
-             console.log(err);
-         }else{
-         // console.log(`this is path ${final_img.path}`);
-         let UserName = final_img.UserName
-
-         PostModel.find({}, (err, allPost) => {
-             Image.find({}, (err, allPhotos) => {
-                 UserModel.findOne({UserName: UserName}, (err, currentUser) => {
-                     UserModel.find({}, (err, allUsers) => {
-                            res.render('gallery.ejs', {post:allPost, allUsers:allUsers,
-                            currentUser: currentUser, allPhotos:allPhotos});
-                        })
-                    })
-                }).sort({"_id": -1})
-            })
-        }
-    })
-})
+//    app.get("/upLoadImage/:currentUser",(req,res)=>{
+//        UserModel.findOne({UserName: req.params.currentUser}, (err, currentUser) => {
+//            if(err){
+//                 console.log(err);
+//             }else{
+//            res.render("imageUpload.ejs", {currentUser:currentUser});
+//        }
+//    })
+// })
+//
+//
+//  app.post("/uploadphoto",upload.single('myImage'),(req,res)=>{
+//      const img = fs.readFileSync(req.file.path);
+//      const encode_img = img.toString('base64');
+//      const final_img = {
+//          UserName: req.body.UserName,
+//          subject: req.body.subject,
+//          desc: req.body.desc,
+//          img: {
+//          data: fs.readFileSync(path.join(__dirname + '/public/photos/uploads/' + req.file.filename)),
+//          contentType: 'image/png'
+//         }
+//     }
+//
+//     Image.create(final_img, (err,result)=>{
+//         if(err){
+//              console.log(err);
+//          }else{
+//          // console.log(`this is path ${final_img.path}`);
+//          let UserName = final_img.UserName
+//
+//          PostModel.find({}, (err, allPost) => {
+//              Image.find({}, (err, allPhotos) => {
+//                  UserModel.findOne({UserName: UserName}, (err, currentUser) => {
+//                      UserModel.find({}, (err, allUsers) => {
+//                             res.render('gallery.ejs', {post:allPost, allUsers:allUsers,
+//                             currentUser: currentUser, allPhotos:allPhotos});
+//                         })
+//                     })
+//                 })
+//             })
+//         }
+//     })
+// })
 
  // //======================================================
 
 
+// app.set('view engine', 'ejs')
+// app.set('views', 'views')
+//
+//
+//  app.get('/gal', (req, res) => {
+//      res.render('index.ejs');
+//  });
+//  app.post('/upload', (req, res) => {
+//  	if (!req.files) {
+//  		return res.status(400).send('No files were uploaded.')
+//  	}
+//
+//  	let sampleFile = req.files.sampleFile
+//  	let uploadPath = __dirname + '/public/photos/uploads/' + sampleFile.name
+//
+//  	sampleFile.mv(uploadPath, function (err) {
+//  		if (err) {
+//  			return res.status(500).send(err)
+//  		}
+// console.log(uploadPath);
+// let link = uploadPath
+//  		imgur.uploadFile(uploadPath).then((urlObject) => {
+//  			fs.unlinkSync(uploadPath)
+//  			res.render('uploaded.ejs', { link: urlObject.link })
+//  		})
+//         res.render('upload.ejs', {link: link})
+//  	})
+//  })
 
+// app.get("/upLoadImage/:currentUser",(req,res)=>{
+//     UserModel.findOne({UserName: req.params.currentUser}, (err, currentUser) => {
+//         if(err){
+//              console.log(err);
+//          }else{
+//         res.render("imageUpload.ejs", {currentUser:currentUser});
+//     }
+// })
+// })
 
+app.get('/newPhotoUpload/:UserName', (req, res) => {
 
+    UserModel.findOne({UserName: req.params.UserName}, (err, user) => {
+        res.render('newImageUpload.ejs', {
+            currentUser: user
+        });
+    });
+});
 
+app.post('/uploadPhoto/:UserName', (req, res) => {
+    // console.log(req)
+
+    PhotoModel.create(req.body), (err, createdPost) => {
+        res.send(req.body);
+     }
+    PhotoModel.find({}, (err, allPhotos) => {
+    PostModel.find({UserName: req.params.UserName}, (err, userPost) => {
+        Image.find({}, (err, all) => {
+            UserModel.findOne({UserName: req.params.UserName}, (err, currentUser) => {
+                UserModel.find({}, (err, allUsers) => {
+                    UserModel.find({UserName: req.params.UserName}, (err, user) => {
+                        res.render('profile.ejs', {data: user, post:userPost, allUsers:allUsers,
+                        currentUser: currentUser, allPhotos:allPhotos});
+                    })
+                 })
+                })
+            })
+        })
+    }).sort({"_id": -1})
+})
 
 //=============Creates new user send here from login page(/)
 app.post('/newUser', (req, res) => {
@@ -187,7 +248,8 @@ app.get('/:message',(req, res) => {
 //============== loads profile/wall page with info found from first name key
 app.get('/profile/:UserName/:CurrentUser' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
-        Image.find({}, (err, allPhotos) => {
+        PhotoModel.find({}, (err, allPhotos) => {
+        Image.find({}, (err, all) => {
             UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
                 if( currentUser== null){
                     res.redirect('/error');
@@ -198,15 +260,16 @@ app.get('/profile/:UserName/:CurrentUser' , (req, res) => {
                         currentUser: currentUser, allPhotos:allPhotos});
                     })
                 })}
-            })
-        }).sort({"_id": -1})
+            })})
+        })
     }).sort({"_id": -1})
 });
 //===========================================================================
 //============== userProfile Page
 app.get('/userProfile/:UserName/:CurrentUser' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
-        Image.find({}, (err, allPhotos) => {
+        PhotoModel.find({}, (err, allPhotos) => {
+        Image.find({}, (err, all) => {
             UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
                 UserModel.find({}, (err, allUsers) => {
                     UserModel.find({UserName: req.params.UserName}, (err, user) => {
@@ -214,6 +277,7 @@ app.get('/userProfile/:UserName/:CurrentUser' , (req, res) => {
                         currentUser: currentUser, allPhotos:allPhotos});
                     })
                 })
+            })
             })
         })
     }).sort({"_id": -1})
@@ -234,7 +298,7 @@ app.get('/usersPost/:id/:CurrentUser', (req, res) => {
 // =============photo gallery page
 app.get('/gallery/:UserName' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
-        Image.find({}, (err, allPhotos) => {
+        PhotoModel.find({}, (err, allPhotos) => {
             UserModel.findOne({UserName: req.params.UserName}, (err, currentUser) => {
                 UserModel.find({}, (err, allUsers) => {
                     UserModel.find({UserName: req.params.UserName}, (err, user) => {
@@ -247,8 +311,8 @@ app.get('/gallery/:UserName' , (req, res) => {
     })
 });
 app.get('/galleryEdit/:id/:UserName', (req, res) => {
-    Image.findOne({_id: req.params.id}, (err, userPhoto) => {
-        Image.find({}, (err, photos) => {
+    PhotoModel.findOne({_id: req.params.id}, (err, userPhoto) => {
+        PhotoModel.find({}, (err, photos) => {
             UserModel.find({}, (err, allUsers) => {
                 UserModel.findOne({UserName: req.params.UserName},  (err, currentUser) => {
                      res.render('galleryEdit.ejs', {userPhoto:userPhoto, currentUser: currentUser, allUsers:allUsers, allPhotos: photos});
@@ -273,7 +337,7 @@ app.delete('/photoDelete/:id/:UserName',  (req, res)  => {
 });
 app.get('/userGallery/:UserName/:currentUser' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
-        Image.find({}, (err, allPhotos) => {
+        PhotoModel.find({}, (err, allPhotos) => {
             UserModel.findOne({UserName: req.params.currentUser}, (err, currentUser) => {
                 UserModel.find({}, (err, allUsers) => {
                     UserModel.findOne({UserName: req.params.UserName}, (err, user) => {
@@ -391,7 +455,10 @@ app.post('/newPost/:UserName', (req, res) => {
 
 
 
-
+PhotoModel.count({} , (err , data)=> {
+   if ( err ) console.log( err.message );
+    console.log ( `There are ${data} photos in this database` );
+});
 
 Image.count({} , (err , data)=> {
    if ( err ) console.log( err.message );

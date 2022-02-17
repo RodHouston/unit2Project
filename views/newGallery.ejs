@@ -16,14 +16,13 @@
             <img class="cpIcons" src="/photos/cpIcon.png" alt="">
         </header>
         <div class="main">
-            <h1>New Photo Gallery</h1>
+            <h1>Photo Gallery</h1>
             <div class="upperImg">
             </div>
             <div class="gallery">
                 <% allPhotos.forEach(function(image) {%>
                 <div class="box" id='boxes'  onclick = editPhoto('<%= image.id %>')>
-                    <img onclick = zoom() class='galleryPic' id="try" src="<%=image.src%>">
-                    <!-- <img onclick = zoom() class='galleryPic' id="try" src="image.src"> -->
+                    <img onclick = zoom() class='galleryPic' id="try" src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>">
                     <div class="clip" id='right' ></div>
                     <div class="clip" id='left'></div>
                     <div class="clip" id='up'></div>

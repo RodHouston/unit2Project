@@ -16,7 +16,7 @@
             <div class="mainEffect">
                 <div class="container">
                     <div class="holder">
-                        <img class='img' src="<%=userPhoto.src%>" alt="">
+                        <img class='img' src="data:image/<%=userPhoto.img.contentType%>;base64,<%=userPhoto.img.data.toString('base64')%>" alt="">
                     </div>
                     <% if(currentUser.UserName != userPhoto.UserName ){%>
                     <input hidden class='butt'  TYPE="BUTTON" VALUE="noth" onclick = confirmDelete();>

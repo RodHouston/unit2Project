@@ -19,6 +19,7 @@ header{
     justify-content: center;
     align-items:center;
 }
+
 .edit{
     margin-left:200px;
     font-size: 20px;
@@ -172,7 +173,7 @@ header{
 .profilePhotoWide{
     width: 250px;
     height: 100%;
-    background-color: red;
+    /* background-color: red; */
     background-size: 100% 100%;
     background-image: url('/photos/cp.png');
     background-repeat: no-repeat;
@@ -428,22 +429,22 @@ width: auto;
     z-index: 1;
 }
 #up{
-    background: orange;
+    /* background: orange; */
     /* opacity:1; */
     clip-path: polygon(0 0, 100% 0, 50% 50%, 50% 50%);
 }
 #right{
-    background: yellow;
+    /* background: yellow; */
     /* opacity:1; */
     clip-path: polygon(100% 0, 100% 100%, 50% 50%);
 }
 #down{
-    background: blue;
+    /* background: blue; */
     /* opacity:1; */
     clip-path: polygon(0 100%, 100% 100%, 50% 50%);
 }
 #left{
-    background: red;
+    /* background: red; */
     /* opacity: 1; */
     clip-path: polygon(0 0, 0 100%, 50% 50%);
 }
@@ -473,25 +474,25 @@ width: auto;
 }
 #rightClip{
     /* background: blue; */
-    border: 5px solid blue;
+    /* border: 5px solid blue; */
     clip-path: inset(0 0 0 100%);
 
 }
 #downClip{
     /* background: red; */
-    border: 5px solid red;
+    /* border: 5px solid red; */
     clip-path: inset(100% 0 0 0);
 
 }
 #upClip{
     /* background: yellow; */
-    border: 5px solid yellow;
+    /* border: 5px solid yellow; */
     clip-path: inset(0 0 100% 0);
 
 }
 #leftClip{
     /* background: green; */
-    border: 5px solid green;
+    /* border: 5px solid green; */
     clip-path: inset(0 100% 0 0);
 }
 #right:hover ~ #rightClip,

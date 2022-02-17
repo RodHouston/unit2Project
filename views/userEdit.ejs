@@ -9,84 +9,72 @@
     <body id="bod">
         <div class="main">
             <div class="mainEffect">
-
-
-
                 <h1><%=currentUser.UserName%></h1>
-
-
                 <div class="container">
                     <div class="holder">
-
                         <div class="formHolder">
-        <form class="form" action="/editUser/<%=currentUser.id%>?_method=PUT" method="POST">
-            <div class="pair">
-                <div class="fields" > <input type="text" value="<%=currentUser.UserName%>" name="UserName"/>UserName:<br/> </div>
-                <div class="fields" > <input type="text"  value="<%=currentUser.Password%>" name="Password"/>Password:<br/> </div>
+                            <form class="form" action="/editUser/<%=currentUser.id%>?_method=PUT" method="POST">
+                                <div class="pair">
+                                    <div class="fields" >UserName:<br/><input type="text" value="<%=currentUser.UserName%>" name="UserName"/> </div>
+                                    <div class="fields" >Password: <input type="text"  value="<%=currentUser.Password%>" name="Password"/><br/> </div>
+                                </div>
+                                <div class="pair">
+                                    <div class="fields" >First Name: <input type="text"  value="<%=currentUser.firstName%>" name="firstName"/> <br/> </div>
+
+                                    <div class="fields" >Last Name: <input type="text" value="<%=currentUser.lastName%>" name="lastName"/><br/> </div>
+                                </div>
+                                <div class="pair">
+                                    <!-- Email:<br/> <input type="text" name="email"/><br/> -->
+                                    <div class="fields" >City: <input type="text" value="<%=currentUser.city%>" name="city"/> <br/> </div>
+                                    <div class="fields" >State:  <input type="text" value="<%=currentUser.state%>" name="state"/> <br/> </div>
+                                </div>
+                                <div class="fields" >
+                                    Motto:<textarea class="fields motto" rows="6" cols="60" type="text" placeholder="<%=currentUser.motto%>" name="motto"></textarea>  <br/>
+                                </div>
+                                Profile Picture:<input class="imageField" type="text" value="<%=currentUser.profilePicture%>" name="profilePicture"><br/>
+                                 
+                                Profile Picture:<input class="imageField" type="text" value="<%=currentUser.coverPhoto%>" name="coverPhoto"><br/>
+                                 *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
+                                <input class='butt' id=subEdit type="submit" value="Edit Profile">
+                                <button class='butt' type="button" name="button" onclick="window.location.href='/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>';">Back To Profile</button>
+                                <input class='butt'  TYPE="BUTTON" VALUE="DELETE PROFILE" onclick = confirmDelete() ;>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="pair">
-                <div class="fields" > <input type="text"  value="<%=currentUser.firstName%>" name="firstName"/> First Name:<br/> </div>
-
-                <div class="fields" > <input type="text" value="<%=currentUser.lastName%>" name="lastName"/>Last Name:<br/> </div>
+            <div id="myModal" class="modal">
+                <span class="close">&times;</span>
+                <div id="modalUser" class="modal-content">
+                    <div class="modalButton">
+                        <p>Confirm You want to delete this account</p>
+                        <form action="/userDelete/<%= currentUser.id %>?_method=DELETE" method="POST">
+                            <input class='butt' TYPE="submit" VALUE="DELETE" >
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="pair">
-            <!-- Email:<br/> <input type="text" name="email"/><br/> -->
-                <div class="fields" > <input type="text" value="<%=currentUser.city%>" name="city"/> City:<br/> </div>
-                <div class="fields" > <input type="text" value="<%=currentUser.state%>" name="state"/> State: <br/> </div>
-            </div>
-            <div class="fields" >
-                <textarea class="fields motto" rows="6" cols="60" type="text" placeholder="<%=currentUser.motto%>" name="motto"></textarea> Motto: <br/>
-            </div>
-
-                <input class="imageField" type="text" value="<%=currentUser.profilePicture%>" name="profilePicture"><br/>
-                Profile Picture: *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
-                <input class="imageField" type="text" value="<%=currentUser.coverPhoto%>" name="coverPhoto"><br/>
-                Profile Picture: *Please use a url, ex: 'https://i.imgur.com/Q8vh9AO.jpg'<br/>
-
-            <input class='butt' id=subEdit type="submit" value="Edit Profile">
-            <button class='butt' type="button" name="button" onclick="window.location.href='/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>';">Back To Profile</button>
-            <input class='butt'  TYPE="BUTTON" VALUE="DELETE PROFILE" onclick = confirmDelete() ;>
-        </form>
-
-    </div>
-</div>
-</div>
-</div>
-<div id="myModal" class="modal">
-
-
-    <span class="close">&times;</span>
-    <div id="modalUser" class="modal-content">
-        <div class="modalButton">
-            <p>Confirm You want to delete this account</p>
-            <form action="/userDelete/<%= currentUser.id %>?_method=DELETE" method="POST">
-                <input class='butt' TYPE="submit" VALUE="DELETE" >
-            </form>
         </div>
 
-    </div>
+        <script>
+            const modal = document.getElementById("myModal");
+            const modalImg = document.getElementById("img01");
+            const modalUser = document.getElementById("modalUser");
+            const modalNonUser = document.getElementById("modalNonUser");
+            const image = document.getElementById('bod')
+            const  userName = '<%= currentUser.UserName %>'
 
-</div>
-<script>
-const modal = document.getElementById("myModal");
-const modalImg = document.getElementById("img01");
-const modalUser = document.getElementById("modalUser");
-const modalNonUser = document.getElementById("modalNonUser");
-const image = document.getElementById('bod')
-const  userName = '<%= currentUser.UserName %>'
+            function confirmDelete() {
+              modal.style.display = "block";
+              image.style.backgroundColor = 'red';
+               // modalImg.src = this.src;
+            }
 
-function confirmDelete() {
-  modal.style.display = "block";
-  image.style.backgroundColor = 'red';
-   // modalImg.src = this.src;
-}
-
-const span = document.getElementsByClassName("close")[0];
-span.onclick = function() {
-  modal.style.display = "none";
-  image.style.backgroundColor = 'rgb(40, 40, 40)';
-}
-
-</script>
+            const span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+              modal.style.display = "none";
+              image.style.backgroundColor = 'rgb(40, 40, 40)';
+            }
+        </script>
     </body>
 </html>

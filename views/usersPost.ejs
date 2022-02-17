@@ -27,14 +27,10 @@
                             <div class="content">
                                 <p><%=usersPost.content%></p>
                             </div>
-
                             <div class="postPic" style= "background-image:url(<%=usersPost.img%>)" onclick="zoom()">
-
                             </div>
                         </div>
-
-
-                    <% if(currentUser.UserName == usersPost.UserName ){%>
+                        <% if(currentUser.UserName == usersPost.UserName ){%>
                         <input class='butt'  TYPE="BUTTON" VALUE="EDIT" onclick = edit('<%=usersPost.id%>') ;>
                         <%}%>
                     </div>
@@ -47,12 +43,8 @@
                 <div class="modalPic" id="modalImg" style= "background-image:url(<%=usersPost.img %>)" >
                 </div>
             </div>
-
-
-
-
-
         </div>
+
         <script>
             function edit(id){
                 window.location.href=`/edit/${id}/edit`;
@@ -78,6 +70,5 @@
             }
 
         </script>
-
     </body>
 </html>

@@ -7,21 +7,24 @@
         <title>Document</title>
     </head>
     <body id='bod'>
-        <h1>Upload Image</h1>
+        <h1>New Upload Image </h1>
         <div class="main">
             <div class="mainEffect">
                 <div class="container">
                     <div class="holder">
                         <div class="picture">
-                            <img id="img" src="" alt="">
+                            <div id='img' class="imgIn" style= "background-image:url()"></div>
+                            <img  class="imageMiddle" src="" alt="">
+                            <div  src="" alt=""></div>
                         </div>
-    	                <form class='form1' action="/uploadphoto" method="POST" enctype="multipart/form-data">
+    	                <form class='form1' action="/uploadPhoto/<%=currentUser.UserName%>" method="POST" >
                             <input hidden type="text" id="nameVal" value="<%=currentUser.UserName%>" name="UserName" required></input>
+
                             <label for="desc">Image Description</label> <br>
                                 <textarea id="desc" name="desc" value="" rows="4" placeholder="Description" required></textarea>
                             <div>
                                 <label for="myImage">Upload Image</label>
-                                <input  type="file" id="postImg" name="myImage" value="" onchange="updateValue()" required></input>
+                                <input class="input" id="postImg" type="text" name="src" value=""/>
                             </div>
                             <div>
                                 <button class="input butt" id=subPost type="submit">Submit</button>
@@ -33,17 +36,15 @@
         </div>
 
         <script>
-            function updateValue() {
-                let oFReader = new FileReader();
-                oFReader.readAsDataURL(document.getElementById("postImg").files[0]);
+        const input = document.querySelector('#postImg');
+        const log = document.getElementById('img');
 
-                oFReader.onload = function (oFREvent) {
-                    document.getElementById("img").src = oFREvent.target.result;
-                };
-            };
-            $("#imgInp").change(function(){
-            readURL(this);
-            });
+        input.addEventListener('change', updateValue);
+
+        function updateValue(e) {
+
+           log.style.backgroundImage = `url("${e.target.value}")`;
+       }
         </script>
     </body>
 </html>

@@ -11,73 +11,46 @@
     <body id="bod">
         <header>
             <img class="cpIcons" src="/photos/cpIcon.png" alt="">
-            <a href="/upLoadImage/<%=currentUser.UserName%>"><ion-icon name="arrow-up-circle"></ion-icon>  Upload An Image</a>
+            <a href="/newPhotoUpload/<%=currentUser.UserName%>"><ion-icon name="arrow-up-circle"></ion-icon>  Upload An Image</a>
             <a href="/userProfile/<%=currentUser.UserName%>/<%=currentUser.UserName%>"><ion-icon name="home"></ion-icon>  Home</a>
             <a href="/gallery/<%=currentUser.UserName%>"><ion-icon name="images"></ion-icon> Main Gallery</a>
-
             <img class="cpIcons" src="/photos/cpIcon.png" alt="">
-
-
         </header>
         <div class="main">
-
-
-
             <h1><%=user.UserName%>'s Photos'</h1>
-
-                    <div class="upperImg">
-
-
-                            </div>
-
-                            <div class="gallery">
-
-                            <%for(val of allPhotos){%>
-                            <%if(user.UserName == val.UserName){%>
-
-
-                            <div class="box" id='boxes'  onclick = editPhoto('<%= val.id %>')>
-
-                                <img onclick = zoom() class='galleryPic' id="try" src="data:image/<%=val.img.contentType%>;base64,<%=val.img.data.toString('base64')%>">
-
-                                <div class="clip" id='right' ></div>
-                                <div class="clip" id='left'></div>
-                                <div class="clip" id='up'></div>
-                                <div class="clip" id='down'></div>
-                                <span id='rightClip' class="clipper">Click to Zoom<br><br>
-                                    <%= val.desc%>
-                                </span>
-                                <span id='leftClip' class="clipper">Click to Zoom<br><br>
-                                    <%= val.desc%>
-                                </span>
-
-                                <span id='upClip' class="clipper">Click to Zoom<br><br>
-                                    <%= val.desc%>
-                                </span>
-
-                                <span id='downClip' class="clipper">Click to Zoom<br><br>
-                                    <%= val.desc%>
-                                </span>
-                            </div>
-                            <%}}%>
-
-                        <div id="myModal" class="modal">
+            <div class="upperImg"></div>
+            <div class="gallery">
+                <%for(val of allPhotos){%>
+                <%if(user.UserName == val.UserName){%>
+                    <div class="box" id='boxes'  onclick = editPhoto('<%= val.id %>')>
+                        <img onclick = zoom() class='galleryPic' id="try" src="<%=val.src%>">
+                        <div class="clip" id='right' ></div>
+                        <div class="clip" id='left'></div>
+                        <div class="clip" id='up'></div>
+                        <div class="clip" id='down'></div>
+                        <span id='rightClip' class="clipper">Click to Zoom<br><br>
+                            <%= val.desc%>
+                        </span>
+                        <span id='leftClip' class="clipper">Click to Zoom<br><br>
+                            <%= val.desc%>
+                        </span>
+                        <span id='upClip' class="clipper">Click to Zoom<br><br>
+                            <%= val.desc%>
+                        </span>
+                        <span id='downClip' class="clipper">Click to Zoom<br><br>
+                            <%= val.desc%>
+                        </span>
+                    </div>
+                <%}}%>
+            <div id="myModal" class="modal">
+                <span class="close">&times;</span>
+                <div class="modal-content">
+                    <p>You cannot edit this photo</p>
+                </div>
+                </div>
 
 
-                            <span class="close">&times;</span>
-                            <div class="modal-content">
-                                <p>You cannot edit this photo</p>
-
-
-                            </div>
-
-
-
-                          <div id="caption"></div>
-                        </div>
-
-
-                            </div>
+                </div>
 
 
         </div>

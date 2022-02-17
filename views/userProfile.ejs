@@ -77,33 +77,26 @@
                                          </a>
                                 </div>
                                 <%}else if(data[0].UserName != currentUser.UserName ){%>
-                                    <h1><%=data[0].UserName%>'s Post</h1>
-                            <%}%>
-                            <%for(let val of post){%>
+                                <h1><%=data[0].UserName%>'s Post</h1>
+                                <%}%>
+                                <%for(let val of post){%>
                                 <% if(data[0].UserName === val.UserName ){%>
-
-
                                 <div class="box" onclick="viewPost('<%=val.id%>')">
-                                   <div class="postDiv">
+                                    <div class="postDiv">
                                            <div class="sidePostPic" style= "background-image:url(<%=val.img%>)" id="edit">
                                                <div class="postText">
                                                    <div class="sideUserPic" style= "background-image:url( <%=data[0].profilePicture%>)"></div>
                                                   <h3><%=val.UserName%></h3> <p><%=val.content%></p>
                                                 </div>
                                             </div>
-
-                                       <div class="clip" id='right'></div>
-                                       <div class="clip" id='left'></div>
-                                       <div class="clip" id='up'></div>
-                                       <div class="clip" id='down'></div>
-
-                                       <span id='rightClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></p></span>
-
-                                       <span id='leftClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
-
-                                       <span id='upClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
-
-                                       <span id='downClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
+                                        <div class="clip" id='right'></div>
+                                        <div class="clip" id='left'></div>
+                                        <div class="clip" id='up'></div>
+                                        <div class="clip" id='down'></div>
+                                        <span id='rightClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></p></span>
+                                        <span id='leftClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
+                                        <span id='upClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
+                                        <span id='downClip' class="clipper"><div class= "emptyClipBox"></div><div class= 'sideClipBox'><h3>Posted by <%=val.UserName%></h3><p><%=val.content%></div></span>
                                    </div>
                                </div>
                             <%}}%>
@@ -114,15 +107,14 @@
         </div>
         <script>
 
-        function edit(id){
-            window.location.href=`/edit/${id}/edit`;
+            function edit(id){
+                window.location.href=`/edit/${id}/edit`;
 
-        }
-        function viewPost(id){
-            window.location.href=`/usersPost/${id}/<%=currentUser.UserName%>`;
+            }
+            function viewPost(id){
+                window.location.href=`/usersPost/${id}/<%=currentUser.UserName%>`;
 
-        }
-
+            }
             const sliders = document.querySelector('.carouselBox')
 
             let scrollAmount = 0;
@@ -178,7 +170,5 @@
               }
             }
         </script>
-
-
     </body>
 </html>

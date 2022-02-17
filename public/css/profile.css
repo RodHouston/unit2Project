@@ -33,9 +33,18 @@ header{
     justify-content: center;
     align-items: center;
 }
+.mobileHeader{
+    display: none;
+}
 a{
     text-decoration: none;
     color: white;
+}
+a:hover{
+    color:rgb(0, 213, 181);
+    text-decoration: underline;
+    transform: scale(1.1);
+   color:rgb(0, 213, 181);
 }
 .cpIcons{
     width: 60px;
@@ -49,7 +58,9 @@ a{
 .hiddenHeaderName{
     display: none;
 }
-
+article:hover{
+    cursor: pointer;
+}
 .main{
     width: 90%;
     height: 100%;
@@ -111,6 +122,7 @@ a{
     /* background-color: red; */
     justify-content: center;
 }
+
 .nameBox{
     padding-left: 10px;
     width: 100%;
@@ -172,11 +184,15 @@ a{
     background-size: 100% 100%;
 }
 .img{
+
     width: 170px;
     height:170px;
     border-radius: 100px;
     margin: auto;
     border: 5px solid rgb(70, 70, 70);
+    background-size: 100% 100%;
+    background-position: center;
+    margin: 0   auto;
 }
 
 .bodyHead{
@@ -278,7 +294,7 @@ a{
 
     width: 25%;
     height: 100vh;
-    background-color: yellow;
+    /* background-color: yellow; */
 
     background-image: url('/photos/galaxy.jpeg');
     background-repeat: no-repeat;
@@ -331,6 +347,7 @@ ion-icon{
     color: rgb(50, 50, 50);
 }
 .links:hover{
+    color:rgb(0, 213, 181);
     text-decoration: underline;
     transform: scale(1.1);
 }
@@ -340,7 +357,7 @@ ion-icon{
 
     width: 25%;
     height: 100vh;
-    background-color: yellow;
+    /* background-color: yellow; */
     background-image: url('/photos/galaxy.jpeg');
     background-repeat: no-repeat;
     background-size: 100% 100vh;
@@ -461,22 +478,22 @@ ion-icon{
     z-index: 1;
 }
 #up{
-    background: orange;
+    /* background: orange; */
     /* opacity:1; */
     clip-path: polygon(0 0, 100% 0, 50% 50%, 50% 50%);
 }
 #right{
-    background: yellow;
+    /* background: yellow; */
     /* opacity:1; */
     clip-path: polygon(100% 0, 100% 100%, 50% 50%);
 }
 #down{
-    background: blue;
+    /* background: blue; */
     /* opacity:1; */
     clip-path: polygon(0 100%, 100% 100%, 50% 50%);
 }
 #left{
-    background: red;
+    /* background: red; */
     /* opacity: 1; */
     clip-path: polygon(0 0, 0 100%, 50% 50%);
 }
@@ -506,25 +523,25 @@ ion-icon{
 }
 #rightClip{
     /* background: blue; */
-    border: 5px solid blue;
+    /* border: 5px solid blue; */
     clip-path: inset(0 0 0 100%);
 
 }
 #downClip{
     /* background: red; */
-    border: 5px solid red;
+    /* border: 5px solid red; */
     clip-path: inset(100% 0 0 0);
 
 }
 #upClip{
     /* background: yellow; */
-    border: 5px solid yellow;
+    /* border: 5px solid yellow; */
     clip-path: inset(0 0 100% 0);
 
 }
 #leftClip{
     /* background: green; */
-    border: 5px solid green;
+    /* border: 5px solid green; */
     clip-path: inset(0 100% 0 0);
 }
 #right:hover ~ #rightClip,
@@ -572,6 +589,19 @@ ion-icon{
   h1{
       font-size: 25px;
   }
+  header{
+
+  }
+  .mobileHeader {
+      display: flex;
+      flex-direction: row;
+  }
+  .mobileHeader a, ion-icon{
+      display: flex;
+      flex-direction: row;
+      color:rgb(0, 213, 181);
+  }
+
   .main{
       width: 100%;
   }
