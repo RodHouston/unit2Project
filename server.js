@@ -146,7 +146,7 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 //     })
 // })
 
- // //======================================================
+ // //=====================images 2.0=================================
 
 
 // app.set('view engine', 'ejs')
@@ -187,7 +187,7 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 //     }
 // })
 // })
-
+// //=======================images 3.0 ===============================
 app.get('/newPhotoUpload/:UserName', (req, res) => {
 
     UserModel.findOne({UserName: req.params.UserName}, (err, user) => {
@@ -249,18 +249,19 @@ app.get('/:message',(req, res) => {
 app.get('/profile/:UserName/:CurrentUser' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
         PhotoModel.find({}, (err, allPhotos) => {
-        Image.find({}, (err, all) => {
-            UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
-                if( currentUser== null){
-                    res.redirect('/error');
-                } else {
-                UserModel.find({}, (err, allUsers) => {
-                    UserModel.find({UserName: req.params.UserName}, (err, user) => {
-                        res.render('profile.ejs', {data: user, post:allPost, allUsers:allUsers,
-                        currentUser: currentUser, allPhotos:allPhotos});
-                    })
-                })}
-            })})
+            Image.find({}, (err, all) => {
+                UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
+                    if( currentUser== null){
+                        res.redirect('/error');
+                    } else {
+                    UserModel.find({}, (err, allUsers) => {
+                        UserModel.find({UserName: req.params.UserName}, (err, user) => {
+                            res.render('profile.ejs', {data: user, post:allPost, allUsers:allUsers,
+                            currentUser: currentUser, allPhotos:allPhotos});
+                        })
+                    })}
+                })
+            })
         })
     }).sort({"_id": -1})
 });
@@ -269,15 +270,15 @@ app.get('/profile/:UserName/:CurrentUser' , (req, res) => {
 app.get('/userProfile/:UserName/:CurrentUser' , (req, res) => {
     PostModel.find({}, (err, allPost) => {
         PhotoModel.find({}, (err, allPhotos) => {
-        Image.find({}, (err, all) => {
-            UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
-                UserModel.find({}, (err, allUsers) => {
-                    UserModel.find({UserName: req.params.UserName}, (err, user) => {
-                        res.render('userProfile.ejs', {data: user, post:allPost, allUsers:allUsers,
-                        currentUser: currentUser, allPhotos:allPhotos});
+            Image.find({}, (err, all) => {
+                UserModel.findOne({UserName: req.params.CurrentUser}, (err, currentUser) => {
+                    UserModel.find({}, (err, allUsers) => {
+                        UserModel.find({UserName: req.params.UserName}, (err, user) => {
+                            res.render('userProfile.ejs', {data: user, post:allPost, allUsers:allUsers,
+                            currentUser: currentUser, allPhotos:allPhotos});
+                        })
                     })
                 })
-            })
             })
         })
     }).sort({"_id": -1})
