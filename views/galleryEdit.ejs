@@ -21,7 +21,7 @@
                     <div class="holder">
                     <img class='img' id='img' src="<%=userPhoto.src%>" alt="">
                     </div>
-                    
+
                     <% if(currentUser.UserName != userPhoto.UserName ){%>
                     <input hidden class='butt'  TYPE="BUTTON" VALUE="noth" onclick = confirmDelete();>
                     <%}else if(currentUser.UserName === userPhoto.UserName ){%>
@@ -60,17 +60,20 @@
                // modalImg.src = this.src;
 
             }
+
             function deletePhoto(id) {
                 window.location.href=`/photoDelete/${id}/${userName}`;
             }
+
             const span = document.getElementsByClassName("close")[0];
+
             span.onclick = function() {
               modal.style.display = "none";
               image.style.backgroundColor = 'rgb(40, 40, 40)';
           }
 
 
-            }
+
 
         </script>
     </body>

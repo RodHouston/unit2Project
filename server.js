@@ -161,8 +161,8 @@ app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 //  		return res.status(400).send('No files were uploaded.')
 //  	}
 //
-//  	let sampleFile = req.files.sampleFile
-//  	let uploadPath = __dirname + '/public/photos/uploads/' + sampleFile.name
+//  	let file = req.files.file
+//  	let uploadPath = __dirname + '/public/photos/uploads/' + file.name
 //
 //  	sampleFile.mv(uploadPath, function (err) {
 //  		if (err) {
