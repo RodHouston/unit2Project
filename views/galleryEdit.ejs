@@ -11,19 +11,26 @@
             <img class="cpIcons" src="/photos/cpIcon.png" alt="">
             <h1>Photo provided by <%=userPhoto.UserName%></h1>
             <img class="cpIcons" src="/photos/cpIcon.png" alt="">
+
+
         </header>
         <div class="main">
             <div class="mainEffect">
                 <div class="container">
+
                     <div class="holder">
-                        <img class='img' src="<%=userPhoto.src%>" alt="">
+                    <img class='img' id='img' src="<%=userPhoto.src%>" alt="">
                     </div>
+                    
                     <% if(currentUser.UserName != userPhoto.UserName ){%>
                     <input hidden class='butt'  TYPE="BUTTON" VALUE="noth" onclick = confirmDelete();>
                     <%}else if(currentUser.UserName === userPhoto.UserName ){%>
                     <input class='butt'  TYPE="BUTTON" VALUE="DELETE" onclick = confirmDelete() ;>
                     <%}%>
+
+
                 </div>
+
             </div>
         </div>
         <div id="myModal" class="modal">
@@ -45,6 +52,7 @@
             const modalNonUser = document.getElementById("modalNonUser");
             const image = document.getElementById('bod')
             const  userName = '<%= currentUser.UserName %>'
+            const nextImage = document.getElementById('img')
 
             function confirmDelete() {
               modal.style.display = "block";
@@ -59,7 +67,11 @@
             span.onclick = function() {
               modal.style.display = "none";
               image.style.backgroundColor = 'rgb(40, 40, 40)';
+          }
+
+
             }
+
         </script>
     </body>
 </html>

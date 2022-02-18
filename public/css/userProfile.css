@@ -616,7 +616,7 @@ width: auto;
       position: absolute;
       width: 250px;
       height: 25vh;
-      background-color: red;
+      /* background-color: red; */
       background-size: cover;
       background-image: url('/photos/cp.png');
       background-repeat: no-repeat;
