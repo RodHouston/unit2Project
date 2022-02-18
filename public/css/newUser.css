@@ -19,6 +19,7 @@ header{
     max-width: 80%;
     min-width: 420px;
     height: 90%;
+    padding: 10px;
     margin: 20px auto;
     background-color:rgb(18, 18, 18);
     background-image: url('/photos/bike1.jpeg');
